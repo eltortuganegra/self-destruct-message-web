@@ -14,7 +14,7 @@ class SecretControllerTest  extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testGetRequestMustReturnA()
+    public function testGetRequestMustReturnA405HttpCodeWhenMethodIsGet()
     {
         // Arrange
         $this->client->request('GET', '/secret');
