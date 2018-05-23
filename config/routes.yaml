@@ -1,3 +1,7 @@
 index:
     path: /
     controller: App\Controller\MainController::index
+
+create_secrete:
+    path: /secret
+    controller: App\Controller\SecretController::create
