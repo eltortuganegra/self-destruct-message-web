@@ -14,16 +14,16 @@ class SecretControllerTest  extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testGetRequestMustReturnA405HttpCodeWhenMethodIsGet()
+    public function testPostRequestMustReturnA200HttpCodeWhenMethodIsPost()
     {
         // Arrange
-        $this->client->request('GET', '/secret');
+        $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
 
         // Act
         $returnedStatusCode = $this->client->getResponse()->getStatusCode();
 
         // Assert
-        $this->assertEquals(405, $returnedStatusCode);
+        $this->assertEquals(200, $returnedStatusCode);
     }
 
 }
