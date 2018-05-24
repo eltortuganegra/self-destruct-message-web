@@ -38,4 +38,16 @@ class MainControllerTest  extends WebTestCase
         $this->assertEquals(1, $isApplicationFound);
     }
 
+    public function testWhenUsersCreateASecretTheMessageFieldIsRequired()
+    {
+        // Arrange
+        $crawler = $this->client->request( 'GET', '/');
+
+        // Act
+        $amountLinkForShare = $crawler->filter('.message[required="required"]')->count();
+
+        // Assert
+        $this->assertEquals(1, $amountLinkForShare);
+    }
+
 }

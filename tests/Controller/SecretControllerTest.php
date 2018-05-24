@@ -38,6 +38,4 @@ class SecretControllerTest  extends WebTestCase
         $this->assertEquals(1, $amountLinkForShare);
     }
 
-
-
 }
