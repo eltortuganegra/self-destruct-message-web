@@ -26,4 +26,18 @@ class SecretControllerTest  extends WebTestCase
         $this->assertEquals(200, $returnedStatusCode);
     }
 
+    public function testWhenUsersCreateASecretTheirMustCanToSeeTheLinkToShareTheSecret()
+    {
+        // Arrange
+        $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+
+        // Act
+        $amountLinkForShare = $crawler->filter('.linkForShare')->count();
+
+        // Assert
+        $this->assertEquals(1, $amountLinkForShare);
+    }
+
+
+
 }
