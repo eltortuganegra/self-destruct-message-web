@@ -38,4 +38,16 @@ class SecretControllerTest  extends WebTestCase
         $this->assertEquals(1, $amountLinkForShare);
     }
 
+    public function testWhenUsersHaveCreatedTheSecretTheyCanReturnToTheMainPage()
+    {
+        // Arrange
+        $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+
+        // Act
+        $amountLinkForCreateANewSecret = $crawler->filter('.linkForCreateNewSecret')->count();
+
+        // Assert
+        $this->assertEquals(1, $amountLinkForCreateANewSecret);
+    }
+
 }
