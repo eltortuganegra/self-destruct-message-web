@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
+use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
 
 use Ramsey\Uuid\Uuid;
@@ -29,7 +30,8 @@ class SecretController extends Controller
         $secretCreateServiceRequest->setMessage($message);
 
         $secretFactory = new SecretFactoryImp();
-        $service = new SecretCreateService($secretFactory);
+        $linkForShareFactory = new LinkForShareFactoryImp();
+        $service = new SecretCreateService($secretFactory, $linkForShareFactory);
         $secretCreateServiceResponse = $service->execute($secretCreateServiceRequest);
 
         return $this->render('secret/created.html.twig', [

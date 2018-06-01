@@ -7,6 +7,7 @@ use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 
 use App\domain\Services\ServiceResponse;
+use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -18,7 +19,8 @@ class SecretCreateServiceTest extends TestCase
     {
         // Arrange
         $secretFactory = new SecretFactoryImp();
-        $service = new SecretCreateService($secretFactory);
+        $linkForShareFactory = new LinkForShareFactoryImp();
+        $service = new SecretCreateService($secretFactory, $linkForShareFactory);
         $identifier = Uuid::uuid4();
         $secretId = SecretIdFactory::create($identifier);
         $message = 'This is a secret.';
