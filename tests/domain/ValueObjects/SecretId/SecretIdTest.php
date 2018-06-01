@@ -2,7 +2,7 @@
 
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
-use App\domain\ValueObjects\SecretId\SecretIdImp;
+
 use PHPUnit\Framework\TestCase;
 
 class SecretIdTest extends TestCase
