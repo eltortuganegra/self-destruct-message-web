@@ -3,9 +3,9 @@
 namespace App\domain\Entities\Secret;
 
 
-use App\domain\ValueObjects\Secret\SecretId;
+use App\domain\ValueObjects\SecretId\SecretId;
 
 interface SecretFactory
 {
-    static public function create(SecretId $secretId, string $message): Secret;
+    public function create(SecretId $secretId, string $message): Secret;
 }

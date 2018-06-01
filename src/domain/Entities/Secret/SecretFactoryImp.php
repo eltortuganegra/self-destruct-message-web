@@ -3,11 +3,11 @@
 namespace App\domain\Entities\Secret;
 
 
-use App\domain\ValueObjects\Secret\SecretId;
+use App\domain\ValueObjects\SecretId\SecretId;
 
 class SecretFactoryImp implements SecretFactory
 {
-    static public function create(SecretId $secretId, string $message): Secret
+    public function create(SecretId $secretId, string $message): Secret
     {
         return new SecretImp($secretId, $message);
     }

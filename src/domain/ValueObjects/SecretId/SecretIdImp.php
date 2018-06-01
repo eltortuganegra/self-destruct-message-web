@@ -1,6 +1,6 @@
 <?php
 
-namespace App\domain\ValueObjects\Secret;
+namespace App\domain\ValueObjects\SecretId;
 
 
 class SecretIdImp implements SecretId
@@ -8,14 +8,9 @@ class SecretIdImp implements SecretId
 
     private $identifier;
 
-    private function __construct(string $identifier)
+    public function __construct(string $identifier)
     {
         $this->identifier = $identifier;
-    }
-
-    static public function create(string $identifier): SecretId
-    {
-        return new static($identifier);
     }
 
     public function getIdentifier(): string

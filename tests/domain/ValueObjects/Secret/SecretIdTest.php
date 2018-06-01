@@ -1,7 +1,8 @@
 <?php
 
-use App\domain\ValueObjects\Secret\SecretId;
-use App\domain\ValueObjects\Secret\SecretIdImp;
+use App\domain\ValueObjects\SecretId\SecretId;
+use App\domain\ValueObjects\SecretId\SecretIdFactory;
+use App\domain\ValueObjects\SecretId\SecretIdImp;
 use PHPUnit\Framework\TestCase;
 
 class SecretIdTest extends TestCase
@@ -10,7 +11,8 @@ class SecretIdTest extends TestCase
     {
         // Arrange
         $identifier = '1234';
-        $secretId = SecretIdImp::create($identifier);
+        $secretIdFactory = new SecretIdFactory();
+        $secretId = $secretIdFactory->create($identifier);
 
         // Act
         $isInstanceOfSecretId = $secretId instanceof SecretId;
