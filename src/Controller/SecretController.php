@@ -16,9 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 class SecretController extends Controller
 {
 
-    private $secretCreateServiceRequest;
+    private $serviceRequest;
     private $service;
-    private $secretCreateServiceResponse;
+    private $serviceResponse;
 
     public function __construct()
     {
@@ -26,10 +26,9 @@ class SecretController extends Controller
         $this->createSecretCreateService();
     }
 
-
     private function createSecretCreateServiceRequest(): void
     {
-        $this->secretCreateServiceRequest = new SecretCreateServiceRequest();
+        $this->serviceRequest = new SecretCreateServiceRequest();
     }
 
     private function createSecretCreateService(): void
@@ -45,7 +44,7 @@ class SecretController extends Controller
         $this->executeService();
 
         return $this->render('secret/created.html.twig', [
-            'response' => $this->secretCreateServiceResponse
+            'response' => $this->serviceResponse
         ]);
     }
 
@@ -59,13 +58,13 @@ class SecretController extends Controller
 
     private function executeService()
     {
-        $this->secretCreateServiceResponse = $this->service->execute($this->secretCreateServiceRequest);
+        $this->serviceResponse = $this->service->execute($this->serviceRequest);
     }
 
     private function loadNextSecretId(): void
     {
         $secretId = SecretIdFactory::create(Uuid::uuid4());
-        $this->secretCreateServiceRequest->setSecretId($secretId);
+        $this->serviceRequest->setSecretId($secretId);
     }
 
     private function loadProtocolFromRequest(Request $request): void
@@ -73,19 +72,19 @@ class SecretController extends Controller
         $protocol = empty($request->server->get('HTTPS'))
             ? 'http'
             : 'https';
-        $this->secretCreateServiceRequest->setProtocol($protocol);
+        $this->serviceRequest->setProtocol($protocol);
     }
 
     private function loadDomainFromRequest(Request $request): void
     {
         $domain = $request->server->get('HTTP_HOST');
-        $this->secretCreateServiceRequest->setDomain($domain);
+        $this->serviceRequest->setDomain($domain);
     }
 
     private function loadMessageFromRequest($request): void
     {
         $message = $request->request->get('message');
-        $this->secretCreateServiceRequest->setMessage($message);
+        $this->serviceRequest->setMessage($message);
     }
 
 }
