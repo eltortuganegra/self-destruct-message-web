@@ -30,7 +30,8 @@ class SecretCreateServiceTest extends TestCase
     private function buildRequest(): void
     {
         $identifier = '1234';
-        $secretId = SecretIdFactoryImp::create($identifier);
+        $secretIdFactory = new SecretIdFactoryImp();
+        $secretId = $secretIdFactory->create($identifier);
         $message = 'This is a secret.';
         $protocol = 'https';
         $domain = 'sharedsecrets.eltortuganegra.com';

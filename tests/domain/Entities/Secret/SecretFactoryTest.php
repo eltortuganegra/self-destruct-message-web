@@ -14,7 +14,8 @@ class SecretFactoryTest extends TestCase
     {
         // Arrange
         $identifier = '1234';
-        $secretId = SecretIdFactoryImp::create($identifier);
+        $secretIdFactory = new SecretIdFactoryImp();
+        $secretId = $secretIdFactory->create($identifier);
         $message = 'This is a message.';
         $secretFactory = new SecretFactoryImp();
         $secret = $secretFactory->create($secretId, $message);

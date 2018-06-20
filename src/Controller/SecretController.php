@@ -76,7 +76,8 @@ class SecretController extends Controller
 
     private function loadNextSecretId(): void
     {
-        $secretId = SecretIdFactoryImp::create(Uuid::uuid4());
+        $secretIdFactory = new SecretIdFactoryImp();
+        $secretId = $secretIdFactory->create(Uuid::uuid4());
         $this->serviceRequest->setSecretId($secretId);
     }
 

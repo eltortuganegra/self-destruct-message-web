@@ -16,7 +16,8 @@ class SecretTest extends TestCase
     public function setUp()
     {
         $identifier = '1234';
-        $this->secretId = SecretIdFactoryImp::create($identifier);
+        $secretIdFactory = new SecretIdFactoryImp();
+        $this->secretId = $secretIdFactory->create($identifier);
         $this->message = 'This is a secret.';
         $secretFactory = new SecretFactoryImp();
         $this->secret = $secretFactory->create($this->secretId, $this->message);
