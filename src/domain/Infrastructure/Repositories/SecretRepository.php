@@ -7,6 +7,6 @@ use App\domain\ValueObjects\SecretId\SecretId;
 
 interface SecretRepository
 {
-    public function add(Secret $secret);
-    public function getBySecretId(SecretId $secretId);
+    public function add(Secret $secret): void;
+    public function getBySecretId(SecretId $secretId): ?Secret;
 }

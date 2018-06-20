@@ -3,27 +3,47 @@
 namespace App\Controller;
 
 use App\domain\Entities\Secret\SecretFactoryImp;
+use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
-use App\domain\ValueObjects\SecretId\SecretIdFactory;
+use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 
+use Doctrine\ORM\EntityManager;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class SecretController extends Controller
 {
-
     private $serviceRequest;
     private $service;
     private $serviceResponse;
+    private $entityManager;
 
-    public function __construct()
+
+    public function create(Request $request)
     {
+        $this->executeSecretCreateService($request);
+
+        return $this->render('secret/created.html.twig', [
+            'response' => $this->serviceResponse
+        ]);
+    }
+
+    private function executeSecretCreateService(Request $request): void
+    {
+        $this->loadEntityManager();
         $this->createSecretCreateServiceRequest();
         $this->createSecretCreateService();
+        $this->loadSecretCreateServiceRequest($request);
+        $this->executeService();
+    }
+
+    private function loadEntityManager(): void
+    {
+        $this->entityManager = $this->getDoctrine()->getManager();
     }
 
     private function createSecretCreateServiceRequest(): void
@@ -34,18 +54,11 @@ class SecretController extends Controller
     private function createSecretCreateService(): void
     {
         $secretFactory = new SecretFactoryImp();
+        $secretIdFactory = new SecretIdFactoryImp();
         $linkForShareFactory = new LinkForShareFactoryImp();
-        $this->service = new SecretCreateService($secretFactory, $linkForShareFactory);
-    }
+        $secretRepository = new DoctrineSecretRepository($this->entityManager, $secretFactory, $secretIdFactory);
 
-    public function create(Request $request)
-    {
-        $this->loadSecretCreateServiceRequest($request);
-        $this->executeService();
-
-        return $this->render('secret/created.html.twig', [
-            'response' => $this->serviceResponse
-        ]);
+        $this->service = new SecretCreateService($secretFactory, $linkForShareFactory, $secretRepository);
     }
 
     private function loadSecretCreateServiceRequest(Request $request): void
@@ -63,7 +76,7 @@ class SecretController extends Controller
 
     private function loadNextSecretId(): void
     {
-        $secretId = SecretIdFactory::create(Uuid::uuid4());
+        $secretId = SecretIdFactoryImp::create(Uuid::uuid4());
         $this->serviceRequest->setSecretId($secretId);
     }
 
@@ -86,5 +99,7 @@ class SecretController extends Controller
         $message = $request->request->get('message');
         $this->serviceRequest->setMessage($message);
     }
+
+
 
 }

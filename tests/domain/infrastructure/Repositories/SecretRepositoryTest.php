@@ -1,24 +1,28 @@
 <?php
 
-
 use App\domain\Entities\Secret\SecretFactoryImp;
-use App\domain\Infrastructure\Repositories\MemorySecretRepository;
+use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class PostRepositoryTest extends TestCase
+class SecretRepositoryTest extends KernelTestCase
 {
-    public function testSecretRepositoryMustCanPersistAPost()
+    public function testSecretMustCanBePersisted()
     {
         // Arrange
+        $kernel = self::bootKernel();
+        $entityManager = $kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+
         $identifier = Uuid::uuid4();
         $message = 'This is a secret message.';
         $secretIdFactory = new SecretIdFactoryImp();
         $secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
         $secret = $secretFactory->create($secretId, $message);
-        $secretRepository = new MemorySecretRepository();
+        $secretRepository = new DoctrineSecretRepository($entityManager, $secretFactory, $secretIdFactory);
         $secretRepository->add($secret);
 
         // Act

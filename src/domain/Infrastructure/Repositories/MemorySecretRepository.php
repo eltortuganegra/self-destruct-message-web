@@ -10,13 +10,13 @@ class MemorySecretRepository implements SecretRepository
 
     private $secrets = [];
 
-    public function add(Secret $secret)
+    public function add(Secret $secret): void
     {
         $identifier = $secret->getSecretId()->getIdentifier();
         $this->secrets[$identifier] = $secret;
     }
 
-    public function getBySecretId(SecretId $secretId)
+    public function getBySecretId(SecretId $secretId): ?Secret
     {
         $identifier = $secretId->getIdentifier();
 

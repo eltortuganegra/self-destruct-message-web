@@ -3,10 +3,7 @@
 namespace App\domain\ValueObjects\SecretId;
 
 
-class SecretIdFactory
+interface SecretIdFactory
 {
-    public function create(string $identifier): SecretId
-    {
-        return new SecretIdImp($identifier);
-    }
+    public function create(string $identifier): SecretId;
 }

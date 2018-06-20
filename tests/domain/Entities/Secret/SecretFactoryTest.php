@@ -5,7 +5,7 @@ namespace App\tests\domain;
 
 use App\domain\Entities\Secret\Secret;
 use App\domain\Entities\Secret\SecretFactoryImp;
-use App\domain\ValueObjects\SecretId\SecretIdFactory;
+use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 use PHPUnit\Framework\TestCase;
 
 class SecretFactoryTest extends TestCase
@@ -14,7 +14,7 @@ class SecretFactoryTest extends TestCase
     {
         // Arrange
         $identifier = '1234';
-        $secretId = SecretIdFactory::create($identifier);
+        $secretId = SecretIdFactoryImp::create($identifier);
         $message = 'This is a message.';
         $secretFactory = new SecretFactoryImp();
         $secret = $secretFactory->create($secretId, $message);

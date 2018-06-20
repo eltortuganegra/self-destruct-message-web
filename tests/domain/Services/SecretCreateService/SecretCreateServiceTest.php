@@ -5,12 +5,13 @@ namespace App\tests\domain\Services;
 
 use App\domain\Entities\Secret\Secret;
 use App\domain\Entities\Secret\SecretFactoryImp;
+use App\domain\Infrastructure\Repositories\MemorySecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
-use App\domain\ValueObjects\SecretId\SecretIdFactory;
+use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 use PHPUnit\Framework\TestCase;
 
 class SecretCreateServiceTest extends TestCase
@@ -29,7 +30,7 @@ class SecretCreateServiceTest extends TestCase
     private function buildRequest(): void
     {
         $identifier = '1234';
-        $secretId = SecretIdFactory::create($identifier);
+        $secretId = SecretIdFactoryImp::create($identifier);
         $message = 'This is a secret.';
         $protocol = 'https';
         $domain = 'sharedsecrets.eltortuganegra.com';
@@ -44,7 +45,8 @@ class SecretCreateServiceTest extends TestCase
     {
         $secretFactory = new SecretFactoryImp();
         $linkForShareFactory = new LinkForShareFactoryImp();
-        $this->service = new SecretCreateService($secretFactory, $linkForShareFactory);
+        $memoryRepository = new MemorySecretRepository();
+        $this->service = new SecretCreateService($secretFactory, $linkForShareFactory, $memoryRepository);
     }
 
     private function executeService()
