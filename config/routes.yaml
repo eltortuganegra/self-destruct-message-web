@@ -5,3 +5,7 @@ index:
 create_secrete:
     path: /secret
     controller: App\Controller\SecretController::create
+
+show_secrete:
+    path: /secret/{secretId}
+    controller: App\Controller\SecretShowController::index
