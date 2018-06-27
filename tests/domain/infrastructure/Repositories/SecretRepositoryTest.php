@@ -32,4 +32,29 @@ class SecretRepositoryTest extends KernelTestCase
         $this->assertEquals($secret, $result);
     }
 
+//    public function testShouldRemoveElementWhenElementExists()
+//    {
+//        // Arrange
+//        $kernel = self::bootKernel();
+//        $entityManager = $kernel->getContainer()
+//            ->get('doctrine')
+//            ->getManager();
+//
+//        $identifier = Uuid::uuid4();
+//        $message = 'This is a secret message.';
+//        $secretIdFactory = new SecretIdFactoryImp();
+//        $secretId = $secretIdFactory->create($identifier);
+//        $secretFactory = new SecretFactoryImp();
+//        $secret = $secretFactory->create($secretId, $message);
+//        $secretRepository = new DoctrineSecretRepository($entityManager, $secretFactory, $secretIdFactory);
+//        $secretRepository->add($secret);
+//        $secretRepository->remove($secretId);
+//
+//        // Act
+//        $result = $secretRepository->getBySecretId($secretId);
+//
+//        // Assert
+//        $this->assertEquals(null, $result);
+//    }
+
 }
