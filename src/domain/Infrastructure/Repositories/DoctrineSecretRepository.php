@@ -45,6 +45,10 @@ class DoctrineSecretRepository implements SecretRepository
     public function getBySecretId(SecretId $secretId): ?Secret
     {
         $result = $this->findSecretBySecretId($secretId);
+        if (empty($result)) {
+            return null;
+        }
+
         $secret = $this->createSecretFromResult($secretId, $result);
 
         return $secret;

@@ -3,6 +3,8 @@
 namespace App\tests\Controller;
 
 
+use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
+use App\Repository\SecretRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecretShowControllerTest extends WebTestCase
@@ -34,6 +36,21 @@ class SecretShowControllerTest extends WebTestCase
 
         // Act
         $amountSecretShowDiv = $crawler->filter('.secret_show.error')->count();
+
+        // Assert
+        $this->assertEquals(1, $amountSecretShowDiv);
+    }
+
+    public function testShouldShowSecretWhenSecretExists()
+    {
+        // Arrange
+        $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+        $linkForShareUrl = $crawler->filter('.linkForShare')->first()->attr('value');
+
+        $crawler = $this->client->request('GET', $linkForShareUrl);
+
+        // Act
+        $amountSecretShowDiv = $crawler->filter('.secret_show:not(.error)')->count();
 
         // Assert
         $this->assertEquals(1, $amountSecretShowDiv);
