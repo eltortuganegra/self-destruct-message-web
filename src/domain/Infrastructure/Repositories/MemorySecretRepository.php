@@ -22,4 +22,11 @@ class MemorySecretRepository implements SecretRepository
 
         return $this->secrets[$identifier];
     }
+
+    public function remove(Secret $secret): void
+    {
+        $identifier = $secret->getSecretId()->getIdentifier();
+
+        unset($this->secrets[$identifier]);
+    }
 }

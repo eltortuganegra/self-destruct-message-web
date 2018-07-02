@@ -7,6 +7,7 @@ use App\domain\Entities\Secret\SecretFactory;
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
 
 class DoctrineSecretRepository implements SecretRepository
 {
@@ -72,4 +73,15 @@ class DoctrineSecretRepository implements SecretRepository
         return $secret;
     }
 
+    public function remove(Secret $secret): void
+    {
+        $entity = $this->findSecretBySecretId($secret->getSecretId());
+        $this->removeEntity($entity);
+    }
+
+    private function removeEntity(\App\Entity\Secret $entity): void
+    {
+        $this->entityManager->remove($entity);
+        $this->entityManager->flush();
+    }
 }
