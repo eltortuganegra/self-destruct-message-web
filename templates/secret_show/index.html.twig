@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shared secret!{% endblock %}
+
+{% block body %}
+
+<div class="secret_show">
+    <h1>Show shared secret</h1>
+    <p>This message will only be shown one time.</p>
+    <div class="secret">
+        <h2>Secret</h2>
+        <p>Message</p>
+        <textarea>{{ response.getSecret.message }}</textarea>
+    </div>
+</div>
+{% endblock %}
