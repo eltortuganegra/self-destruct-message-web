@@ -11,11 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class SecretShowAndDestroyServiceTest extends TestCase
 {
-
     private $serviceResponse;
     private $secret;
     private $secretRepository;
-
 
     public function setUp()
     {
@@ -42,9 +40,6 @@ class SecretShowAndDestroyServiceTest extends TestCase
 
     public function testServiceMustReturnSecret()
     {
-        // Arrange
-
-
         // Act
         $returnedSecret = $this->serviceResponse->getSecret();
 
