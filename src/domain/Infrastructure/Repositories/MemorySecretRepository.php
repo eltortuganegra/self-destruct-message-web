@@ -23,7 +23,7 @@ class MemorySecretRepository implements SecretRepository
         $this->secrets[$identifier] = $secret;
     }
 
-    public function getBySecretId(SecretId $secretId): ?Secret
+    public function findBySecretId(SecretId $secretId): ?Secret
     {
         $identifier = $secretId->getIdentifier();
 

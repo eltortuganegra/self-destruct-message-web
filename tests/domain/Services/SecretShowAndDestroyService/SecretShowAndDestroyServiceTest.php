@@ -58,7 +58,7 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $secretId = $this->secret->getSecretId();
 
         // Act
-        $returnedSecret = $this->secretRepository->getBySecretId($secretId);
+        $returnedSecret = $this->secretRepository->findBySecretId($secretId);
 
         // Assert
         $this->assertEquals(null, $returnedSecret);

@@ -9,6 +9,6 @@ interface SecretRepository
 {
     public function add(Secret $secret): void;
     public function remove(Secret $secret): void;
-    public function getBySecretId(SecretId $secretId): ?Secret;
+    public function findBySecretId(SecretId $secretId): ?Secret;
     public function nextIdentity(): SecretId;
 }

@@ -50,7 +50,7 @@ class SecretCreateService implements Service
 
     private function buildResponse(): SecretCreateServiceResponse
     {
-        $secret = $this->secretRepository->getBySecretId($this->secret->getSecretId());
+        $secret = $this->secretRepository->findBySecretId($this->secret->getSecretId());
         $linkForShare = $this->linkForShareFactory->create(
             $this->serviceRequest->getProtocol(),
             $this->serviceRequest->getDomain(),

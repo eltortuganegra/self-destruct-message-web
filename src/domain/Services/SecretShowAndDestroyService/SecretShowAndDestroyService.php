@@ -23,7 +23,7 @@ class SecretShowAndDestroyService implements Service
     {
 
         $secretId = $serviceRequest->getSecretId();
-        $secret = $this->secretRepository->getBySecretId($secretId);
+        $secret = $this->secretRepository->findBySecretId($secretId);
 
         if (empty($secret)) {
             throw new SecretNotFoundException('pero que cojones');

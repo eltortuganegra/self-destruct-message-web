@@ -22,7 +22,7 @@ class PostRepositoryTest extends TestCase
         $secretRepository->add($secret);
 
         // Act
-        $result = $secretRepository->getBySecretId($secretId);
+        $result = $secretRepository->findBySecretId($secretId);
 
         // Assert
         $this->assertEquals($secret, $result);

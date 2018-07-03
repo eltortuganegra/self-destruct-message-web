@@ -35,7 +35,7 @@ class SecretRepositoryTest extends KernelTestCase
         $this->secretRepository->add($this->secret);
 
         // Act
-        $result = $this->secretRepository->getBySecretId($this->secretId);
+        $result = $this->secretRepository->findBySecretId($this->secretId);
 
         // Assert
         $this->assertEquals($this->secret, $result);
@@ -48,7 +48,7 @@ class SecretRepositoryTest extends KernelTestCase
         $this->secretRepository->remove($this->secret);
 
         // Act
-        $result = $this->secretRepository->getBySecretId($this->secretId);
+        $result = $this->secretRepository->findBySecretId($this->secretId);
 
         // Assert
         $this->assertEquals(null, $result);

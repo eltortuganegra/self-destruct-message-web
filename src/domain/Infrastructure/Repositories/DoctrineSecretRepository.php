@@ -44,7 +44,7 @@ class DoctrineSecretRepository implements SecretRepository
         $this->entityManager->flush();
     }
 
-    public function getBySecretId(SecretId $secretId): ?Secret
+    public function findBySecretId(SecretId $secretId): ?Secret
     {
         $result = $this->findSecretBySecretId($secretId);
         if (empty($result)) {
