@@ -11,6 +11,7 @@ use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
+use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 use PHPUnit\Framework\TestCase;
 
@@ -98,7 +99,7 @@ class SecretCreateServiceTest extends TestCase
         $message = $secret->getMessage();
 
         // Assert
-        $this->assertEquals('This is a secret.', $message);
+        $this->assertEquals('This is a secret.', $message->getContent());
     }
 
     public function testResponseMustContentLinkForShareOfTheCreatedSecret()

@@ -75,4 +75,16 @@ class SecretControllerTest  extends WebTestCase
         $this->assertEquals(true, $isMessageFound);
     }
 
+    public function testShouldShow404PageWhenUrlHasNotIdentifierOfSecret()
+    {
+        // Arrange
+        $this->client->request( 'GET', '/secret');
+
+        // Act
+        $returnedStatusCode = $this->client->getResponse()->getStatusCode();
+
+        // Assert
+        $this->assertEquals(404, $returnedStatusCode);
+    }
+
 }

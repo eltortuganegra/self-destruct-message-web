@@ -2,6 +2,7 @@
 
 namespace App\tests\domain;
 
+use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdImp;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +19,8 @@ class SecretTest extends TestCase
         $identifier = '1234';
         $secretIdFactory = new SecretIdFactoryImp();
         $this->secretId = $secretIdFactory->create($identifier);
-        $this->message = 'This is a secret.';
+        $messageFactory = new MessageFactoryImp();
+        $this->message = $messageFactory->create('This is a secret.');
         $secretFactory = new SecretFactoryImp();
         $this->secret = $secretFactory->create($this->secretId, $this->message);
     }

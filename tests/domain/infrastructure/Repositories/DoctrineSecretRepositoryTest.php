@@ -2,6 +2,7 @@
 
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
+use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -19,10 +20,12 @@ class DoctrineSecretRepositoryTest extends KernelTestCase
             ->getManager();
         $secretFactory = new SecretFactoryImp();
         $secretIdFactory = new SecretIdFactoryImp();
+        $messageFactory = new MessageFactoryImp();
         $this->secretRepository = new DoctrineSecretRepository(
             $entityManager,
             $secretFactory,
-            $secretIdFactory
+            $secretIdFactory,
+            $messageFactory
         );
     }
 

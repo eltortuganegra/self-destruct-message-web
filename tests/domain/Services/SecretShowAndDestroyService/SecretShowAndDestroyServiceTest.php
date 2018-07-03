@@ -6,6 +6,7 @@ use App\domain\Infrastructure\Repositories\MemorySecretRepository;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyService;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
+use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +22,9 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $secretIdFactory = new SecretIdFactoryImp();
         $secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
-        $message = 'This is awesome secret message.';
+        $messageText = 'This is awesome secret message.';
+        $messageFactory = new MessageFactoryImp();
+        $message = $messageFactory->create($messageText);
         $this->secret = $secretFactory->create($secretId, $message);
 
         $this->secretRepository = new MemorySecretRepository($secretIdFactory);

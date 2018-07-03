@@ -9,6 +9,7 @@ use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyService;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
+use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,13 @@ class SecretShowController extends Controller
     {
         $secretIdFactory = new SecretIdFactoryImp();
         $secretFactory = new SecretFactoryImp();
-        $secretRepository = new DoctrineSecretRepository($entityManager, $secretFactory, $secretIdFactory);
+        $messageFactory = new MessageFactoryImp();
+        $secretRepository = new DoctrineSecretRepository(
+            $entityManager,
+            $secretFactory,
+            $secretIdFactory,
+            $messageFactory
+        );
         $this->serviceRequest = new SecretShowAndDestroyServiceRequest($secretIdFactory);
         $linkForShareFactory = new LinkForShareFactoryImp();
         $this->service = new SecretShowAndDestroyService($secretRepository, $linkForShareFactory);
@@ -48,10 +55,14 @@ class SecretShowController extends Controller
         $protocol = empty($request->server->get('HTTPS'))
             ? 'http'
             : 'https';
-        $domain = $request->server->get('HTTP_HOST');
-
         $this->serviceRequest->setProtocol($protocol);
+
+        $domain = $request->server->get('HTTP_HOST');
         $this->serviceRequest->setDomain($domain);
+
+        if (empty($secretId)) {
+            $secretId = '';
+        }
         $this->serviceRequest->setIdentifier($secretId);
     }
 

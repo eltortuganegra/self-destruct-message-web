@@ -3,6 +3,7 @@
 namespace App\domain\Entities\Secret;
 
 
+use App\domain\ValueObjects\Message\Message;
 use App\domain\ValueObjects\SecretId\SecretId;
 
 class SecretImp implements Secret
@@ -11,7 +12,7 @@ class SecretImp implements Secret
     private $message;
     private $linkForShare;
 
-    public function __construct(SecretId $secretId, string $message)
+    public function __construct(SecretId $secretId, Message $message)
     {
         $this->secretId = $secretId;
         $this->message = $message;
@@ -22,7 +23,7 @@ class SecretImp implements Secret
         return $this->secretId;
     }
 
-    public function getMessage(): string
+    public function getMessage(): Message
     {
         return $this->message;
     }

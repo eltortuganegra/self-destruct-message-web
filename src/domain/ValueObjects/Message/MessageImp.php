@@ -11,4 +11,9 @@ class MessageImp implements Message
     {
         $this->message = $message;
     }
+
+    public function getContent(): string
+    {
+        return $this->message;
+    }
 }

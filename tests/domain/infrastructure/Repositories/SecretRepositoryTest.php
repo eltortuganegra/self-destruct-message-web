@@ -2,6 +2,7 @@
 
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
+use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -21,12 +22,20 @@ class SecretRepositoryTest extends KernelTestCase
             ->getManager();
 
         $identifier = Uuid::uuid4();
-        $message = 'This is a secret message.';
+        $messageText = 'This is a secret message.';
+        $messageFactory = new MessageFactoryImp();
+        $message = $messageFactory->create($messageText);
         $secretIdFactory = new SecretIdFactoryImp();
         $this->secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
         $this->secret = $secretFactory->create($this->secretId, $message);
-        $this->secretRepository = new DoctrineSecretRepository($entityManager, $secretFactory, $secretIdFactory);
+        $messageFactory = new MessageFactoryImp();
+        $this->secretRepository = new DoctrineSecretRepository(
+            $entityManager,
+            $secretFactory,
+            $secretIdFactory,
+            $messageFactory
+        );
     }
 
     public function testSecretMustCanBePersisted()

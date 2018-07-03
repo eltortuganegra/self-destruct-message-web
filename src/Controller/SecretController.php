@@ -6,14 +6,16 @@ use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
-use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
+use App\domain\ValueObjects\Message\MessageFactoryImp;
+use App\domain\ValueObjects\Message\MessageIsVoidException;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 
 use Doctrine\ORM\EntityManager;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SecretController extends Controller
 {
@@ -25,11 +27,14 @@ class SecretController extends Controller
 
     public function create(Request $request)
     {
-        $this->executeSecretCreateService($request);
+        try {
+            $this->executeSecretCreateService($request);
 
-        return $this->render('secret/created.html.twig', [
-            'response' => $this->serviceResponse
-        ]);
+            return $this->renderCreatedSecret();
+        } catch(MessageIsVoidException $exception) {
+
+            return $this->renderCodeIsEmpty();
+        }
     }
 
     private function executeSecretCreateService(Request $request): void
@@ -56,7 +61,13 @@ class SecretController extends Controller
         $secretFactory = new SecretFactoryImp();
         $secretIdFactory = new SecretIdFactoryImp();
         $linkForShareFactory = new LinkForShareFactoryImp();
-        $secretRepository = new DoctrineSecretRepository($this->entityManager, $secretFactory, $secretIdFactory);
+        $messageFactory = new MessageFactoryImp();
+        $secretRepository = new DoctrineSecretRepository(
+            $this->entityManager,
+            $secretFactory,
+            $secretIdFactory,
+            $messageFactory
+        );
 
         $this->service = new SecretCreateService($secretFactory, $linkForShareFactory, $secretRepository);
     }
@@ -98,9 +109,26 @@ class SecretController extends Controller
     private function loadMessageFromRequest($request): void
     {
         $message = $request->request->get('message');
+        if (empty($message)) {
+            $message = '';
+        }
         $this->serviceRequest->setMessage($message);
     }
 
+    private function renderCreatedSecret(): Response
+    {
+        return $this->render('secret/created.html.twig', [
+            'response' => $this->serviceResponse
+        ]);
+    }
 
+    private function renderCodeIsEmpty(): Response
+    {
+        return $this->render(
+            'secret/error.html.twig',
+            [],
+            new Response('', 404)
+        );
+    }
 
 }

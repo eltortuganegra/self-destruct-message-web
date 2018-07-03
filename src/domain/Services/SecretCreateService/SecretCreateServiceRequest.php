@@ -3,14 +3,21 @@
 namespace App\domain\Services\SecretCreateService;
 
 use App\domain\Services\ServiceRequest;
+use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretId;
 
 class SecretCreateServiceRequest implements ServiceRequest
 {
+    private $messageFactory;
     private $secretId;
     private $message;
     private $protocol;
     private $domain;
+
+    public function __construct()
+    {
+        $this->messageFactory = new MessageFactoryImp();
+    }
 
     public function setSecretId(SecretId $secretId): void
     {
@@ -29,7 +36,7 @@ class SecretCreateServiceRequest implements ServiceRequest
 
     public function getMessage()
     {
-        return $this->message;
+        return $this->messageFactory->create($this->message);
     }
 
     public function setProtocol(string $protocol): void
