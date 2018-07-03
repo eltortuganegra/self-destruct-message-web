@@ -8,7 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class SecretRepositoryTest extends KernelTestCase
 {
-    public function testSecretMustCanBePersisted()
+    private $secret;
+    private $secretRepository;
+    private $secretId;
+
+    public function setUp()
     {
         // Arrange
         $kernel = self::bootKernel();
@@ -19,39 +23,32 @@ class SecretRepositoryTest extends KernelTestCase
         $identifier = Uuid::uuid4();
         $message = 'This is a secret message.';
         $secretIdFactory = new SecretIdFactoryImp();
-        $secretId = $secretIdFactory->create($identifier);
+        $this->secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
-        $secret = $secretFactory->create($secretId, $message);
-        $secretRepository = new DoctrineSecretRepository($entityManager, $secretFactory, $secretIdFactory);
-        $secretRepository->add($secret);
+        $this->secret = $secretFactory->create($this->secretId, $message);
+        $this->secretRepository = new DoctrineSecretRepository($entityManager, $secretFactory, $secretIdFactory);
+    }
+
+    public function testSecretMustCanBePersisted()
+    {
+        // Arrange
+        $this->secretRepository->add($this->secret);
 
         // Act
-        $result = $secretRepository->getBySecretId($secretId);
+        $result = $this->secretRepository->getBySecretId($this->secretId);
 
         // Assert
-        $this->assertEquals($secret, $result);
+        $this->assertEquals($this->secret, $result);
     }
 
     public function testShouldRemoveASecretFromRepository()
     {
         // Arrange
-        $kernel = self::bootKernel();
-        $entityManager = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-
-        $identifier = Uuid::uuid4();
-        $message = 'This is a secret message.';
-        $secretIdFactory = new SecretIdFactoryImp();
-        $secretId = $secretIdFactory->create($identifier);
-        $secretFactory = new SecretFactoryImp();
-        $secret = $secretFactory->create($secretId, $message);
-        $secretRepository = new DoctrineSecretRepository($entityManager, $secretFactory, $secretIdFactory);
-        $secretRepository->add($secret);
-        $secretRepository->remove($secret);
+        $this->secretRepository->add($this->secret);
+        $this->secretRepository->remove($this->secret);
 
         // Act
-        $result = $secretRepository->getBySecretId($secretId);
+        $result = $this->secretRepository->getBySecretId($this->secretId);
 
         // Assert
         $this->assertEquals(null, $result);
