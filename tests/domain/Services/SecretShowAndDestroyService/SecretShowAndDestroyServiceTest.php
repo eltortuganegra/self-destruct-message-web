@@ -38,7 +38,6 @@ class SecretShowAndDestroyServiceTest extends TestCase
 
         $service = new SecretShowAndDestroyService($this->secretRepository, $linkForShareFactory);
         $this->serviceResponse = $service->execute($serviceRequest);
-
     }
 
     public function testServiceMustReturnSecret()
@@ -53,15 +52,15 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $this->assertEquals($this->secret, $returnedSecret);
     }
 
-//    public function testServiceMustDeleteReturnedSecret()
-//    {
-//        // Arrange
-//        $secretId = $this->secret->getSecretId();
-//
-//        // Act
-//        $returnedSecret = $this->secretRepository->getBySecretId($secretId);
-//
-//        // Assert
-//        $this->assertEquals(null, $returnedSecret);
-//    }
+    public function testServiceMustDeleteReturnedSecret()
+    {
+        // Arrange
+        $secretId = $this->secret->getSecretId();
+
+        // Act
+        $returnedSecret = $this->secretRepository->getBySecretId($secretId);
+
+        // Assert
+        $this->assertEquals(null, $returnedSecret);
+    }
 }

@@ -35,6 +35,7 @@ class SecretShowAndDestroyService implements Service
             $serviceRequest->getIdentifier()
         );
 
+        $this->secretRepository->remove($secret);
 
         return new SecretShowAndDestroyServiceResponse($secret, $linkForShare);
     }

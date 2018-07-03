@@ -27,7 +27,15 @@ class MemorySecretRepository implements SecretRepository
     {
         $identifier = $secretId->getIdentifier();
 
-        return $this->secrets[$identifier];
+
+        return $this->doesIdentifierInRepository($identifier)
+            ? $this->secrets[$identifier]
+            : null;
+    }
+
+    private function doesIdentifierInRepository($identifier): bool
+    {
+        return array_key_exists($identifier, $this->secrets);
     }
 
     public function remove(Secret $secret): void
@@ -44,4 +52,5 @@ class MemorySecretRepository implements SecretRepository
 
         return $secretId;
     }
+
 }
