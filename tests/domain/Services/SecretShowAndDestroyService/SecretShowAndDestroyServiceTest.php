@@ -26,7 +26,7 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $message = 'This is awesome secret message.';
         $this->secret = $secretFactory->create($secretId, $message);
 
-        $this->secretRepository = new MemorySecretRepository();
+        $this->secretRepository = new MemorySecretRepository($secretIdFactory);
         $this->secretRepository->add($this->secret);
 
         $serviceRequest = new SecretShowAndDestroyServiceRequest($secretIdFactory);

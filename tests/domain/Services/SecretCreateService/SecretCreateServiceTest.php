@@ -44,9 +44,10 @@ class SecretCreateServiceTest extends TestCase
 
     private function buildService(): void
     {
+        $secretIdFactory = new SecretIdFactoryImp();
         $secretFactory = new SecretFactoryImp();
         $linkForShareFactory = new LinkForShareFactoryImp();
-        $memoryRepository = new MemorySecretRepository();
+        $memoryRepository = new MemorySecretRepository($secretIdFactory);
         $this->service = new SecretCreateService($secretFactory, $linkForShareFactory, $memoryRepository);
     }
 

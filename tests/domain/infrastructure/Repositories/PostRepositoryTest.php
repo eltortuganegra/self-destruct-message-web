@@ -18,7 +18,7 @@ class PostRepositoryTest extends TestCase
         $secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
         $secret = $secretFactory->create($secretId, $message);
-        $secretRepository = new MemorySecretRepository();
+        $secretRepository = new MemorySecretRepository($secretIdFactory);
         $secretRepository->add($secret);
 
         // Act

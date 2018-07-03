@@ -2,9 +2,6 @@
 
 namespace App\tests\Controller;
 
-
-use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
-use App\Repository\SecretRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecretShowControllerTest extends WebTestCase
@@ -55,4 +52,5 @@ class SecretShowControllerTest extends WebTestCase
         // Assert
         $this->assertEquals(1, $amountSecretShowDiv);
     }
+
 }

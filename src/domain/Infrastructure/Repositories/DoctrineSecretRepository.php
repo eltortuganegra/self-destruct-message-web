@@ -8,6 +8,7 @@ use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
+use Ramsey\Uuid\Uuid;
 
 class DoctrineSecretRepository implements SecretRepository
 {
@@ -83,5 +84,13 @@ class DoctrineSecretRepository implements SecretRepository
     {
         $this->entityManager->remove($entity);
         $this->entityManager->flush();
+    }
+
+    public function nextIdentity(): SecretId
+    {
+        $identifier = Uuid::uuid4();
+        $secretId = $this->secretIdFactory->create($identifier);
+
+        return $secretId;
     }
 }
