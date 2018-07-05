@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<form class="secret" action="/secret" method="post">
-    <p>Message</p>
-    <textarea
-            placeholder="You can write your secret in this field"
-            name="message"
-            class="message"
-            required="required"></textarea>
-    <input type="submit" value="create secret">
-</form>
+<section class="secret application">
+    <div class="description">
+        <p>Share sensitive information like password, credentials, your porn profile, etc.</p>
+    </div>
+    <form class="secret" action="/secret" method="post">
+        <p>Message</p>
+        <textarea
+                placeholder="You can write your secret in this field"
+                name="message"
+                class="message"
+                required="required"></textarea>
+        <input type="submit" value="create secret">
+    </form>
+</section>
+
 {% endblock %}
