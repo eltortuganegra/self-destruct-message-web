@@ -1,0 +1,58 @@
+body {
+    margin: 0rem;
+    padding: 0em;
+    font-family: sans-serif;
+}
+
+header, footer, .body {
+    max-width: 67.5rem;
+    margin: auto;
+    padding: 0.5rem;
+}
+
+header, footer {
+    text-align: center;
+}
+
+/*
+Template
+ */
+header {
+    border-bottom: 1px solid darkgray;
+}
+
+header h1 {
+    font-size: large;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+footer {
+    border-top: 1px solid darkgray;
+}
+/*
+Buttons
+ */
+.button {
+
+}
+
+/*
+Page: created secret
+*/
+.create-secret h1 {
+    font-size: large;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+.create-secret textarea, .create-secret input {
+    width: 95%;
+}
+
+.create-secret textarea {
+    height: 10rem;
+}
+
+
+
