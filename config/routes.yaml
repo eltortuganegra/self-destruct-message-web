@@ -9,3 +9,7 @@ create_secrete:
 show_secrete:
     path: /secret/{secretId}
     controller: App\Controller\SecretShowController::index
+
+privacy_page:
+    path: /privacy
+    controller: App\Controller\PrivacyController::index
