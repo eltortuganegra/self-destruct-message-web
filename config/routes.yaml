@@ -13,3 +13,8 @@ show_secrete:
 privacy_page:
     path: /privacy
     controller: App\Controller\PrivacyController::index
+
+terms_and_conditions_page:
+    path: /terms_and_conditions
+    controller: App\Controller\TermsAndConditionsController::index
+
