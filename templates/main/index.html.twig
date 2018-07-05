@@ -1,3 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
 <form class="secret" action="/secret" method="post">
     <p>Message</p>
     <textarea
@@ -7,3 +10,4 @@
             required="required"></textarea>
     <input type="submit" value="create secret">
 </form>
+{% endblock %}
