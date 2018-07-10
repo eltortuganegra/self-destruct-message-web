@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block content %}
 <section class="body create-secret">
     <h1>Create a secret</h1>
     <div class="description">
         <p>Share sensitive information like password, credentials, your porn profile, etc.</p>
     </div>
-    <form class="secret" action="/secret" method="post">
-        <p>Message</p>
-        <textarea
-            placeholder="Put your sensitive information here ..."
-            name="message"
-            class="message"
-            required="required"
-        ></textarea>
-        <p><input type="submit" value="Create link for share"></p>
+    <form class="secret-application" action="/secret" method="post">
+        <article class="secret">
+            <header class="title">
+                <h1>Secret</h1>
+            </header>
+            <section class="message">
+                <p>Message</p>
+                <textarea
+                        placeholder="Put your sensitive information here ..."
+                        name="message"
+                        class="field"
+                        required="required"
+                ></textarea>
+            </section>
+        </article>
+        <input type="submit" class="button button-primary" value="Create link for share">
     </form>
 </section>
 
