@@ -2,6 +2,7 @@ body {
     margin: 0rem;
     padding: 0em;
     font-family: sans-serif;
+    color: grey;
 }
 
 header, footer, .content {
@@ -12,6 +13,14 @@ header, footer, .content {
 
 header, footer {
     text-align: center;
+}
+
+header.header h1 {
+    color: black;
+}
+
+h1 {
+    color: #616161;
 }
 
 /*
