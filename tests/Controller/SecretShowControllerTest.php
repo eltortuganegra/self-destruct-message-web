@@ -42,12 +42,12 @@ class SecretShowControllerTest extends WebTestCase
     {
         // Arrange
         $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
-        $linkForShareUrl = $crawler->filter('.linkForShare')->first()->attr('value');
+        $linkForShareUrl = $crawler->filter('.link-for-share .link .link-field')->first()->attr('value');
 
         $crawler = $this->client->request('GET', $linkForShareUrl);
 
         // Act
-        $amountSecretShowDiv = $crawler->filter('.secret_show:not(.error)')->count();
+        $amountSecretShowDiv = $crawler->filter('.secret')->count();
 
         // Assert
         $this->assertEquals(1, $amountSecretShowDiv);
