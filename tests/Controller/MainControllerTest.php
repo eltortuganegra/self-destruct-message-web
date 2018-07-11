@@ -32,7 +32,7 @@ class MainControllerTest  extends WebTestCase
         $crawler = $this->client->request('GET', '/');
 
         // Act
-        $isApplicationFound = $crawler->filter('form.secret')->count();
+        $isApplicationFound = $crawler->filter('form.secret-application')->count();
 
         // Assert
         $this->assertEquals(1, $isApplicationFound);
@@ -44,7 +44,7 @@ class MainControllerTest  extends WebTestCase
         $crawler = $this->client->request( 'GET', '/');
 
         // Act
-        $amountLinkForShare = $crawler->filter('.message[required="required"]')->count();
+        $amountLinkForShare = $crawler->filter('.message .message-field[required="required"]')->count();
 
         // Assert
         $this->assertEquals(1, $amountLinkForShare);

@@ -117,7 +117,7 @@ Secret
     padding: 0rem 0.5rem;
 }
 
-.secret .message .field {
+.secret .message .message-field {
     width: 100%;
     height: 10rem;
 }
@@ -125,7 +125,7 @@ Secret
 /**
 linkForShare
  */
-.linkForShare {
+.link-for-share {
     position: relative;
     width: 100%;
     margin: 0.5rem 0rem;
@@ -134,18 +134,18 @@ linkForShare
     border-radius: 0.5rem;
 }
 
-.linkForShare .title {
+.link-for-share .title {
     padding: 0rem 0rem 0rem 0.5rem;
     margin: 0rem;
     background-color: #e0e0e0;
     margin-bottom: 0.5rem;
 }
 
-.linkForShare .link {
+.link-for-share .link {
     padding: 0rem 0.5rem;
 }
 
-.linkForShare .link .url {
+.link-for-share .link .link-field {
     width: 98%;
     background-color: #fff3cd;
 }

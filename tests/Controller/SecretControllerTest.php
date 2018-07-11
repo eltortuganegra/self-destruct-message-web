@@ -32,7 +32,7 @@ class SecretControllerTest  extends WebTestCase
         $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
 
         // Act
-        $amountLinkForShare = $crawler->filter('.linkForShare')->count();
+        $amountLinkForShare = $crawler->filter('.link-for-share')->count();
 
         // Assert
         $this->assertEquals(1, $amountLinkForShare);
@@ -44,7 +44,7 @@ class SecretControllerTest  extends WebTestCase
         $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
 
         // Act
-        $amountLinkForCreateANewSecret = $crawler->filter('.linkForCreateNewSecret')->count();
+        $amountLinkForCreateANewSecret = $crawler->filter('.link-to-create-secret .button')->count();
 
         // Assert
         $this->assertEquals(1, $amountLinkForCreateANewSecret);
@@ -54,7 +54,7 @@ class SecretControllerTest  extends WebTestCase
     {
         // Arrange
         $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
-        $url = $crawler->filter('.linkForShare')->attr('value');
+        $url = $crawler->filter('.link-for-share .link .link-field')->attr('value');
 
         // Act
         $isUrlValid = filter_var($url, FILTER_VALIDATE_URL) != false;
