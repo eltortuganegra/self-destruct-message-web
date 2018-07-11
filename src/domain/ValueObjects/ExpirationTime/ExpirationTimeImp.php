@@ -7,15 +7,15 @@ use DateTime;
 
 class ExpirationTimeImp implements ExpirationTime
 {
-    private $date;
+    private $dateTime;
 
-    public function __construct()
+    public function __construct(DateTime $dateTime)
     {
-        $this->date = new DateTime();
+        $this->dateTime = $dateTime;
     }
 
     public function getDate(): DateTime
     {
-        return $this->date;
+        return $this->dateTime;
     }
 }

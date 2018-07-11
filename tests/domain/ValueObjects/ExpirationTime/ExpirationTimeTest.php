@@ -2,23 +2,29 @@
 
 namespace app\tests\domain\ValueObjects\ExpirationTime;
 
-use App\domain\ValueObjects\ExpirationTime\ExpirationTimeImp;
-use App\domain\ValueObjects\ExpirationTime\StubExpirationTimeImp;
+use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class ExpirationTimeTest extends TestCase
 {
+    private $expirationTime;
+
+    public function setUp()
+    {
+        $theSecretOfMonkeyIslandReleaseDate = '1990-10-15';
+        $currentDate = new DateTime($theSecretOfMonkeyIslandReleaseDate);
+        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $this->expirationTime = $expirationTimeFactory->create($currentDate);
+    }
 
     public function testWhenExpirationTimeObjectIsCreatedMustCanReturnExpiration()
     {
         // Arrange
-        $expirationTime = new ExpirationTimeImp();
-        $date = $expirationTime->getDate();
+        $date = $this->expirationTime->getDate();
 
         // Act
         $isDateTimeObject = $date instanceof DateTime;
-
 
         // Arrange
         $this->assertEquals(true, $isDateTimeObject);
@@ -29,10 +35,9 @@ class ExpirationTimeTest extends TestCase
         // Arrange
         $theSecretOfMonkeyIslandReleaseDate = '1990-10-15';
         $currentDate = new DateTime($theSecretOfMonkeyIslandReleaseDate);
-        $expirationTime = new StubExpirationTimeImp();
 
         // Act
-        $date = $expirationTime->getDate();
+        $date = $this->expirationTime->getDate();
 
         // Arrange
         $this->assertEquals($currentDate, $date);
