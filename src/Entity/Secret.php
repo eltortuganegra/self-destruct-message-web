@@ -30,7 +30,7 @@ class Secret
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private $expirationTime;
+    private $expiredAt;
 
     public function getId()
     {
@@ -61,13 +61,13 @@ class Secret
         return $this;
     }
 
-    public function getExpirationTime()
+    public function getExpiredAt()
     {
-        return $this->expirationTime;
+        return $this->expiredAt;
     }
 
-    public function setExpirationTime($expirationTime): void
+    public function setExpiredAt($expiredAt): void
     {
-        $this->expirationTime = $expirationTime;
+        $this->expiredAt = $expiredAt;
     }
 }
