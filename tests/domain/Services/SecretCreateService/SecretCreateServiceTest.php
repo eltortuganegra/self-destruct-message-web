@@ -10,6 +10,7 @@ use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 
 use App\domain\Services\ServiceResponse;
+use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
@@ -41,6 +42,7 @@ class SecretCreateServiceTest extends TestCase
         $this->request->setMessage($message);
         $this->request->setProtocol($protocol);
         $this->request->setDomain($domain);
+        $this->request->setExpirationTimeInSeconds(60);
     }
 
     private function buildService(): void
@@ -49,7 +51,13 @@ class SecretCreateServiceTest extends TestCase
         $secretFactory = new SecretFactoryImp();
         $linkForShareFactory = new LinkForShareFactoryImp();
         $memoryRepository = new MemorySecretRepository($secretIdFactory);
-        $this->service = new SecretCreateService($secretFactory, $linkForShareFactory, $memoryRepository);
+        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $this->service = new SecretCreateService(
+            $secretFactory,
+            $linkForShareFactory,
+            $memoryRepository,
+            $expirationTimeFactory
+        );
     }
 
     private function executeService()

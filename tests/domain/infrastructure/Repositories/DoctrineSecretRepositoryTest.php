@@ -2,6 +2,7 @@
 
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
+use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
@@ -21,11 +22,13 @@ class DoctrineSecretRepositoryTest extends KernelTestCase
         $secretFactory = new SecretFactoryImp();
         $secretIdFactory = new SecretIdFactoryImp();
         $messageFactory = new MessageFactoryImp();
+        $expirationTimeFactory = new ExpirationTimeFactoryImp();
         $this->secretRepository = new DoctrineSecretRepository(
             $entityManager,
             $secretFactory,
             $secretIdFactory,
-            $messageFactory
+            $messageFactory,
+            $expirationTimeFactory
         );
     }
 

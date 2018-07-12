@@ -39,7 +39,8 @@ class SecretCreateService implements Service
     {
         $this->secret = $this->secretFactory->create(
             $this->serviceRequest->getSecretId(),
-            $this->serviceRequest->getMessage()
+            $this->serviceRequest->getMessage(),
+            $this->serviceRequest->getExpirationTime()
         );
     }
 

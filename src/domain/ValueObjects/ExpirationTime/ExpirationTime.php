@@ -8,4 +8,5 @@ use DateTime;
 interface ExpirationTime
 {
     public function getDate(): DateTime;
+    public function toString(): string;
 }

@@ -18,4 +18,9 @@ class ExpirationTimeImp implements ExpirationTime
     {
         return $this->dateTime;
     }
+
+    public function toString(): string
+    {
+        return $this->dateTime->format('Y-m-d H:i:s');
+    }
 }

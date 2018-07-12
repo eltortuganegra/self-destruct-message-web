@@ -6,6 +6,7 @@ use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
+use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\Message\MessageIsVoidException;
@@ -62,11 +63,14 @@ class SecretController extends Controller
         $secretIdFactory = new SecretIdFactoryImp();
         $linkForShareFactory = new LinkForShareFactoryImp();
         $messageFactory = new MessageFactoryImp();
+        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+
         $secretRepository = new DoctrineSecretRepository(
             $this->entityManager,
             $secretFactory,
             $secretIdFactory,
-            $messageFactory
+            $messageFactory,
+            $expirationTimeFactory
         );
 
         $this->service = new SecretCreateService($secretFactory, $linkForShareFactory, $secretRepository);
@@ -78,6 +82,7 @@ class SecretController extends Controller
         $this->loadProtocolFromRequest($request);
         $this->loadDomainFromRequest($request);
         $this->loadMessageFromRequest($request);
+        $this->loadExpirationTimeFromRequest($request);
     }
 
     private function executeService()
@@ -113,6 +118,16 @@ class SecretController extends Controller
             $message = '';
         }
         $this->serviceRequest->setMessage($message);
+    }
+
+    private function loadExpirationTimeFromRequest($request): void
+    {
+        $expirationTime = $request->request->get('expirationTime');
+        if (empty($message)) {
+            // @todo: validate and remove
+            $expirationTime = 0;
+        }
+        $this->serviceRequest->setExpirationTimeInSeconds($expirationTime);
     }
 
     private function renderCreatedSecret(): Response

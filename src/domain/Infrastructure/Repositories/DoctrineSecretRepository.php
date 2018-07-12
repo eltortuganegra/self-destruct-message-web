@@ -4,9 +4,11 @@ namespace App\domain\Infrastructure\Repositories;
 
 use App\domain\Entities\Secret\Secret;
 use App\domain\Entities\Secret\SecretFactory;
+use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactory;
 use App\domain\ValueObjects\Message\MessageFactory;
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
 use Ramsey\Uuid\Uuid;
@@ -16,17 +18,21 @@ class DoctrineSecretRepository implements SecretRepository
     private $entityManager;
     private $secretFactory;
     private $secretIdFactory;
+    private $messageFactory;
+    private $expirationTimeFactory;
 
     public function __construct(
         EntityManager $entityManager,
         SecretFactory $secretFactory,
         SecretIdFactory $secretIdFactory,
-        MessageFactory $messageFactory
+        MessageFactory $messageFactory,
+        ExpirationTimeFactory $expirationTimeFactory
     ) {
         $this->entityManager = $entityManager;
         $this->secretFactory = $secretFactory;
         $this->secretIdFactory = $secretIdFactory;
         $this->messageFactory = $messageFactory;
+        $this->expirationTimeFactory = $expirationTimeFactory;
     }
 
     public function add(Secret $secret): void
@@ -40,6 +46,7 @@ class DoctrineSecretRepository implements SecretRepository
         $entity = new \App\Entity\Secret();
         $entity->setSecretId($secret->getSecretId()->getIdentifier());
         $entity->setMessage($secret->getMessage()->getContent());
+        $entity->setExpirationTime($secret->getExpirationTime()->getDate());
 
         return $entity;
     }
@@ -75,7 +82,8 @@ class DoctrineSecretRepository implements SecretRepository
     {
         $secretId = $this->secretIdFactory->create($result->getSecretId());
         $message = $this->messageFactory->create($result->getMessage());
-        $secret = $this->secretFactory->create($secretId, $message);
+        $expirationTime = $this->expirationTimeFactory->create($result->getExpirationTime());
+        $secret = $this->secretFactory->create($secretId, $message, $expirationTime);
 
         return $secret;
     }

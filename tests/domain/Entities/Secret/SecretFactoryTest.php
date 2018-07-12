@@ -5,8 +5,10 @@ namespace App\tests\domain;
 
 use App\domain\Entities\Secret\Secret;
 use App\domain\Entities\Secret\SecretFactoryImp;
+use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class SecretFactoryTest extends TestCase
@@ -21,7 +23,9 @@ class SecretFactoryTest extends TestCase
         $messageFactory = new MessageFactoryImp();
         $message = $messageFactory->create($messageText);
         $secretFactory = new SecretFactoryImp();
-        $secret = $secretFactory->create($secretId, $message);
+        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTime = $expirationTimeFactory->create(new DateTime());
+        $secret = $secretFactory->create($secretId, $message, $expirationTime);
 
         // Act
         $isReturnedInstanceASecret = $secret instanceof Secret;
