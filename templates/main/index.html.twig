@@ -19,6 +19,20 @@
                         class="message-field"
                         required="required"
                 ></textarea>
+                <article class="expiration-time">
+                    <p>Expiration time</p>
+                    <select class="expiration-time-field">
+                        <option value="60">1 minute</option>
+                        <option value="600">10 minutes</option>
+                        <option value="1800">30 minutes</option>
+                        <option value="3600">1 hour</option>
+                        <option value="6400">2 hour</option>
+                        <option value="12800">4 hour</option>
+                        <option value="25600">8 hour</option>
+                        <option value="86400">1 day</option>
+                        <option value="604800" selected="selected">1 week</option>
+                    </select>
+                </article>
             </section>
         </article>
         <input type="submit" class="button button-primary" value="Create link for share">

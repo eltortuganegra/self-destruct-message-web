@@ -50,4 +50,16 @@ class MainControllerTest  extends WebTestCase
         $this->assertEquals(1, $amountLinkForShare);
     }
 
+    public function testShouldHaveAExpirationTimeFieldWhenMainPageIsShown()
+    {
+        // Arrange
+        $crawler = $this->client->request( 'GET', '/');
+
+        // Act
+        $amountExpirationTimeField = $crawler->filter('.expiration-time-field')->count();
+
+        // Assert
+        $this->assertEquals(1, $amountExpirationTimeField);
+    }
+
 }

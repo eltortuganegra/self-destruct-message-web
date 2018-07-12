@@ -59,7 +59,6 @@ class SecretTest extends TestCase
 
         // Arrange
         $this->assertEquals(true, $isExpirationTime);
-
     }
 
 }
