@@ -87,7 +87,8 @@ class DoctrineSecretRepository implements SecretRepository
         $secretId = $this->secretIdFactory->create($result->getSecretId());
         $message = $this->messageFactory->create($result->getMessage());
         $expirationTime = $this->expirationTimeFactory->create($result->getExpirationTime());
-        $secret = $this->secretFactory->create($secretId, $message, $expirationTime);
+        $expirationDate = $result->getExpiredAt();
+        $secret = $this->secretFactory->createFromRepository($secretId, $message, $expirationTime, $expirationDate);
 
         return $secret;
     }

@@ -62,4 +62,17 @@ class SecretTest extends TestCase
         $this->assertEquals(true, $isExpirationTime);
     }
 
+    public function testGetExpirationDate()
+    {
+        // Arrange
+        $expirationDate = $this->secret->getExpirationDate();
+
+        // Act
+        $isExpirationDateADateTime = $expirationDate instanceof DateTime;
+
+
+        // Arrange
+        $this->assertEquals(true, $isExpirationDateADateTime);
+    }
+
 }

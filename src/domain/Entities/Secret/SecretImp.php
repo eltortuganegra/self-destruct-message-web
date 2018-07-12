@@ -6,6 +6,8 @@ namespace App\domain\Entities\Secret;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTime;
 use App\domain\ValueObjects\Message\Message;
 use App\domain\ValueObjects\SecretId\SecretId;
+use DateInterval;
+use DateTime;
 
 class SecretImp implements Secret
 {
@@ -13,12 +15,14 @@ class SecretImp implements Secret
     private $message;
     private $linkForShare;
     private $expirationTime;
+    private $expirationDate;
 
-    public function __construct(SecretId $secretId, Message $message, ExpirationTime $expirationTime)
+    public function __construct(SecretId $secretId, Message $message, ExpirationTime $expirationTime, DateTime $expirationDate)
     {
         $this->secretId = $secretId;
         $this->message = $message;
         $this->expirationTime = $expirationTime;
+        $this->expirationDate = $expirationDate;
     }
 
     public function getSecretId(): SecretId
@@ -40,4 +44,11 @@ class SecretImp implements Secret
     {
         return $this->expirationTime;
     }
+
+    public function getExpirationDate(): DateTime
+    {
+        return $this->expirationDate;
+    }
+
+
 }

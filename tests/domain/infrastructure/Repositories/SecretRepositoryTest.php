@@ -48,12 +48,14 @@ class SecretRepositoryTest extends KernelTestCase
     {
         // Arrange
         $this->secretRepository->add($this->secret);
-
-        // Act
+        $expirationDate = $this->secret->getExpirationDate()->format('Y-m-d H:i:s');
         $result = $this->secretRepository->findBySecretId($this->secretId);
 
+        // Act
+        $returnedExpirationDate = $result->getExpirationDate()->format('Y-m-d H:i:s');
+
         // Assert
-        $this->assertEquals($this->secret, $result);
+        $this->assertEquals($expirationDate, $returnedExpirationDate);
     }
 
     public function testShouldRemoveASecretFromRepository()
