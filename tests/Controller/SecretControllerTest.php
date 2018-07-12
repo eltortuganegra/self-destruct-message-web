@@ -17,7 +17,10 @@ class SecretControllerTest  extends WebTestCase
     public function testPostRequestMustReturnA200HttpCodeWhenMethodIsPost()
     {
         // Arrange
-        $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+        $this->client->request( 'POST', '/secret', [
+            'message' => 'hello world',
+            'expirationTime' => 600
+        ]);
 
         // Act
         $returnedStatusCode = $this->client->getResponse()->getStatusCode();
@@ -29,7 +32,10 @@ class SecretControllerTest  extends WebTestCase
     public function testWhenUsersCreateASecretTheirMustCanToSeeTheLinkToShareTheSecret()
     {
         // Arrange
-        $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+        $crawler = $this->client->request( 'POST', '/secret', [
+            'message' => 'hello world',
+            'expirationTime' => 600
+        ]);
 
         // Act
         $amountLinkForShare = $crawler->filter('.link-for-share')->count();
@@ -41,7 +47,10 @@ class SecretControllerTest  extends WebTestCase
     public function testWhenUsersHaveCreatedTheSecretTheyCanReturnToTheMainPage()
     {
         // Arrange
-        $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+        $crawler = $this->client->request( 'POST', '/secret', [
+            'message' => 'hello world',
+            'expirationTime' => 600
+        ]);
 
         // Act
         $amountLinkForCreateANewSecret = $crawler->filter('.link-to-create-secret .button')->count();
@@ -53,7 +62,10 @@ class SecretControllerTest  extends WebTestCase
     public function testWhenSecretsAreCreatedTheirLinksMustBeShown()
     {
         // Arrange
-        $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+        $crawler = $this->client->request( 'POST', '/secret', [
+            'message' => 'hello world',
+            'expirationTime' => 600
+        ]);
         $url = $crawler->filter('.link-for-share .link .link-field')->attr('value');
 
         // Act
@@ -66,7 +78,10 @@ class SecretControllerTest  extends WebTestCase
     public function testWhenSecretsAreCreatedTheyMustBeShown()
     {
         // Arrange
-        $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+        $crawler = $this->client->request( 'POST', '/secret', [
+            'message' => 'hello world',
+            'expirationTime' => 600
+        ]);
 
         // Act
         $isMessageFound = $crawler->filter('.secret')->count() == 1;
@@ -90,11 +105,10 @@ class SecretControllerTest  extends WebTestCase
     public function testShouldShowExpirationDateWhenSecretIsCreated()
     {
         // Arrange
-        $crawler = $this->client->request(
-            'POST',
-            '/secret',
-            ['message' => 'Valid message']
-        );
+        $crawler = $this->client->request( 'POST', '/secret', [
+            'message' => 'hello world',
+            'expirationTime' => 600
+        ]);
 
         // Act
         $isMessageFound = $crawler->filter('.expiration-date')->count() == 1;

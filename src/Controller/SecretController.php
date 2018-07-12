@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
+use App\domain\Services\SecretCreateService\ExpirationTimeIsNotFoundException;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
@@ -33,6 +34,9 @@ class SecretController extends Controller
 
             return $this->renderCreatedSecret();
         } catch(MessageIsVoidException $exception) {
+
+            return $this->renderCodeIsEmpty();
+        } catch(ExpirationTimeIsNotFoundException $exception) {
 
             return $this->renderCodeIsEmpty();
         }
@@ -123,7 +127,10 @@ class SecretController extends Controller
     private function loadExpirationTimeFromRequest($request): void
     {
         $expirationTime = $request->request->get('expirationTime');
-        $this->serviceRequest->setExpirationTimeInSeconds((int)$expirationTime);
+        if (empty($expirationTime)) {
+            throw new ExpirationTimeIsNotFoundException();
+        }
+        $this->serviceRequest->setExpirationTimeInSeconds($expirationTime);
     }
 
     private function renderCreatedSecret(): Response

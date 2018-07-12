@@ -27,7 +27,8 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $messageFactory = new MessageFactoryImp();
         $message = $messageFactory->create($messageText);
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
-        $expirationTime = $expirationTimeFactory->create(new DateTime());
+        $expirationTimeInSeconds = 120;
+        $expirationTime = $expirationTimeFactory->create($expirationTimeInSeconds);
         $this->secret = $secretFactory->create($secretId, $message, $expirationTime);
 
         $this->secretRepository = new MemorySecretRepository($secretIdFactory);

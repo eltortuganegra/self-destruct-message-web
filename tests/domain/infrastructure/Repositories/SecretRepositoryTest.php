@@ -30,7 +30,8 @@ class SecretRepositoryTest extends KernelTestCase
         $this->secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
-        $expirationTime = $expirationTimeFactory->create(new DateTime('now'));
+        $expirationSecretSeconds = 60;
+        $expirationTime = $expirationTimeFactory->create($expirationSecretSeconds);
         $this->secret = $secretFactory->create($this->secretId, $message, $expirationTime);
         $messageFactory = new MessageFactoryImp();
 

@@ -26,11 +26,15 @@ class Secret
      */
     private $message;
 
-
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $expiredAt;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $expirationTime;
 
     public function getId()
     {
@@ -69,5 +73,15 @@ class Secret
     public function setExpiredAt($expiredAt): void
     {
         $this->expiredAt = $expiredAt;
+    }
+
+    public function getExpirationTime(): int
+    {
+        return (int)$this->expirationTime;
+    }
+
+    public function setExpirationTime($expirationTime): void
+    {
+        $this->expirationTime = $expirationTime;
     }
 }

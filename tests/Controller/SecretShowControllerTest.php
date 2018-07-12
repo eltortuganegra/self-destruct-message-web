@@ -41,7 +41,10 @@ class SecretShowControllerTest extends WebTestCase
     public function testShouldShowSecretWhenSecretExists()
     {
         // Arrange
-        $crawler = $this->client->request( 'POST', '/secret', ['message' => 'hello world']);
+        $crawler = $this->client->request( 'POST', '/secret', [
+            'message' => 'hello world',
+            'expirationTime' => 120
+        ]);
         $linkForShareUrl = $crawler->filter('.link-for-share .link .link-field')->first()->attr('value');
 
         $crawler = $this->client->request('GET', $linkForShareUrl);

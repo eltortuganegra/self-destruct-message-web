@@ -8,6 +8,7 @@ use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactory;
 use App\domain\ValueObjects\Message\MessageFactory;
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
+use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
@@ -46,7 +47,10 @@ class DoctrineSecretRepository implements SecretRepository
         $entity = new \App\Entity\Secret();
         $entity->setSecretId($secret->getSecretId()->getIdentifier());
         $entity->setMessage($secret->getMessage()->getContent());
-        $entity->setExpiredAt($secret->getExpirationTime()->getDate());
+        $expiredAt = new DateTime();
+        $expiredAt->add(new DateInterval('PT' . $secret->getExpirationTime()->getSeconds() . 'S'));
+        $entity->setExpiredAt($expiredAt);
+        $entity->setExpirationTime($secret->getExpirationTime()->getSeconds());
 
         return $entity;
     }
@@ -82,7 +86,7 @@ class DoctrineSecretRepository implements SecretRepository
     {
         $secretId = $this->secretIdFactory->create($result->getSecretId());
         $message = $this->messageFactory->create($result->getMessage());
-        $expirationTime = $this->expirationTimeFactory->create($result->getExpiredAt());
+        $expirationTime = $this->expirationTimeFactory->create($result->getExpirationTime());
         $secret = $this->secretFactory->create($secretId, $message, $expirationTime);
 
         return $secret;
