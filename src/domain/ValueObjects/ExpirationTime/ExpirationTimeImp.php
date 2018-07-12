@@ -11,6 +11,7 @@ class ExpirationTimeImp implements ExpirationTime
 
     public function __construct(int $seconds)
     {
+        assert($seconds > 0, '$seconds must be greater than zero.');
         $this->seconds = $seconds;
     }
 
@@ -18,5 +19,6 @@ class ExpirationTimeImp implements ExpirationTime
     {
         return $this->seconds;
     }
+
 
 }
