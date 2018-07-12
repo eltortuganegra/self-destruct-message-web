@@ -113,8 +113,12 @@ Secret
     margin-bottom: 0.5rem;
 }
 
-.secret .message {
+.secret .content {
     padding: 0rem 0.5rem;
+}
+
+.secret .message {
+
 }
 
 .secret .message .message-field {
