@@ -87,4 +87,20 @@ class SecretControllerTest  extends WebTestCase
         $this->assertEquals(404, $returnedStatusCode);
     }
 
+    public function testShouldShowExpirationDateWhenSecretIsCreated()
+    {
+        // Arrange
+        $crawler = $this->client->request(
+            'POST',
+            '/secret',
+            ['message' => 'Valid message']
+        );
+
+        // Act
+        $isMessageFound = $crawler->filter('.expiration-date')->count() == 1;
+
+        // Assert
+        $this->assertEquals(true, $isMessageFound);
+    }
+
 }
