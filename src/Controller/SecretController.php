@@ -123,10 +123,6 @@ class SecretController extends Controller
     private function loadExpirationTimeFromRequest($request): void
     {
         $expirationTime = $request->request->get('expirationTime');
-        if (empty($message)) {
-            // @todo: validate and remove
-            $expirationTime = 0;
-        }
         $this->serviceRequest->setExpirationTimeInSeconds($expirationTime);
     }
 

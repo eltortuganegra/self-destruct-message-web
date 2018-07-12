@@ -69,7 +69,6 @@ class SecretCreateServiceRequest implements ServiceRequest
     {
         $expirationDate = new DateTime();
         $expirationDate->add(new DateInterval('PT' . $expirationTimeInSeconds . 'S'));
-
         $this->expirationTime = $this->expirationTimeFactory->create($expirationDate);
     }
 
