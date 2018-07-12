@@ -20,5 +20,4 @@ class ExpirationTimeImp implements ExpirationTime
         return $this->seconds;
     }
 
-
 }
