@@ -7,5 +7,5 @@ use DateTime;
 
 interface ExpirationTimeFactory
 {
-    public function create(DateTime $dateTime): ExpirationTime;
+    public function create(int $seconds): ExpirationTime;
 }

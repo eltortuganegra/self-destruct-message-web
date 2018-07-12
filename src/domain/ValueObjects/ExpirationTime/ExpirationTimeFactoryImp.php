@@ -8,8 +8,8 @@ use DateTime;
 class ExpirationTimeFactoryImp implements ExpirationTimeFactory
 {
 
-    public function create(DateTime $dateTime): ExpirationTime
+    public function create(int $seconds): ExpirationTime
     {
-        return new ExpirationTimeImp($dateTime);
+        return new ExpirationTimeImp($seconds);
     }
 }

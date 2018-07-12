@@ -12,34 +12,17 @@ class ExpirationTimeTest extends TestCase
 
     public function setUp()
     {
-        $theSecretOfMonkeyIslandReleaseDate = '1990-10-15';
-        $currentDate = new DateTime($theSecretOfMonkeyIslandReleaseDate);
+        $expirationTimeSeconds = 10;
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
-        $this->expirationTime = $expirationTimeFactory->create($currentDate);
+        $this->expirationTime = $expirationTimeFactory->create($expirationTimeSeconds);
     }
 
-    public function testWhenExpirationTimeObjectIsCreatedMustCanReturnExpiration()
+    public function testWhenExpirationTimeIsCreatedItMustReturnHowManySeconds()
     {
-        // Arrange
-        $date = $this->expirationTime->getDate();
-
         // Act
-        $isDateTimeObject = $date instanceof DateTime;
+        $seconds = $this->expirationTime->getSeconds();
 
-        // Arrange
-        $this->assertEquals(true, $isDateTimeObject);
-    }
-
-    public function testWhenExpirationTimeObjectIsCreatedItMustCanReturnCurrentDate()
-    {
-        // Arrange
-        $theSecretOfMonkeyIslandReleaseDate = '1990-10-15';
-        $currentDate = new DateTime($theSecretOfMonkeyIslandReleaseDate);
-
-        // Act
-        $date = $this->expirationTime->getDate();
-
-        // Arrange
-        $this->assertEquals($currentDate, $date);
+        // Assert
+        $this->assertEquals(10, $seconds);
     }
 }

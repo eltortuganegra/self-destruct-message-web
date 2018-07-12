@@ -7,20 +7,16 @@ use DateTime;
 
 class ExpirationTimeImp implements ExpirationTime
 {
-    private $dateTime;
+    private $seconds;
 
-    public function __construct(DateTime $dateTime)
+    public function __construct(int $seconds)
     {
-        $this->dateTime = $dateTime;
+        $this->seconds = $seconds;
     }
 
-    public function getDate(): DateTime
+    public function getSeconds(): int
     {
-        return $this->dateTime;
+        return $this->seconds;
     }
 
-    public function toString(): string
-    {
-        return $this->dateTime->format('Y-m-d H:i:s');
-    }
 }
