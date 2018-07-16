@@ -11,7 +11,7 @@ use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
-use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +24,7 @@ class SecretShowController extends Controller
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretFactory = new SecretFactoryImp();
         $messageFactory = new MessageFactoryImp();
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
@@ -36,7 +36,7 @@ class SecretShowController extends Controller
             $expirationTimeFactory
         );
         $this->serviceRequest = new SecretShowAndDestroyServiceRequest($secretIdFactory);
-        $linkForShareFactory = new LinkForShareFactoryImp();
+        $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
         $this->service = new SecretShowAndDestroyService($secretRepository, $linkForShareFactory);
     }
 

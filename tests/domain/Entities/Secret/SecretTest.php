@@ -5,8 +5,7 @@ namespace App\tests\domain;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTime;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
-use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
-use App\domain\ValueObjects\SecretId\SecretIdImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use App\domain\Entities\Secret\SecretFactoryImp;
@@ -20,7 +19,7 @@ class SecretTest extends TestCase
     public function setUp()
     {
         $identifier = '1234';
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $this->secretId = $secretIdFactory->create($identifier);
         $messageFactory = new MessageFactoryImp();
         $this->message = $messageFactory->create('This is a secret.');

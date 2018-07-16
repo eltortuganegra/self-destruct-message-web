@@ -9,6 +9,7 @@ use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class SecretDeleteServiceTest extends TestCase
@@ -19,7 +20,7 @@ class SecretDeleteServiceTest extends TestCase
         $identifier = 'valid identifier';
         $message = 'valid message';
         $expirationTime = 60;
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
         $messageFactory = new MessageFactoryImp();

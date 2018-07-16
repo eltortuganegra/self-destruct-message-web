@@ -9,6 +9,7 @@ use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class SecretShowAndDestroyServiceTest extends TestCase
@@ -20,7 +21,7 @@ class SecretShowAndDestroyServiceTest extends TestCase
     public function setUp()
     {
         $identifier = Ramsey\Uuid\Uuid::uuid4();
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
         $messageText = 'This is awesome secret message.';
@@ -39,7 +40,7 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $serviceRequest->setDomain('test.com');
         $serviceRequest->setProtocol('https');
 
-        $linkForShareFactory = new LinkForShareFactoryImp();
+        $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
 
         $service = new SecretShowAndDestroyService($this->secretRepository, $linkForShareFactory);
         $this->serviceResponse = $service->execute($serviceRequest);

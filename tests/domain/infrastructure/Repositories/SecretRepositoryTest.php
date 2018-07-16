@@ -4,7 +4,7 @@ use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
-use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -26,7 +26,7 @@ class SecretRepositoryTest extends KernelTestCase
         $messageText = 'This is a secret message.';
         $messageFactory = new MessageFactoryImp();
         $message = $messageFactory->create($messageText);
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $this->secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
         $expirationTimeFactory = new ExpirationTimeFactoryImp();

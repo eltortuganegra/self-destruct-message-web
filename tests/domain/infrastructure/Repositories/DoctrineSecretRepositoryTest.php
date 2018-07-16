@@ -5,7 +5,7 @@ use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretId;
-use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DoctrineSecretRepositoryTest extends KernelTestCase
@@ -20,7 +20,7 @@ class DoctrineSecretRepositoryTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
         $secretFactory = new SecretFactoryImp();
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $messageFactory = new MessageFactoryImp();
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
         $this->secretRepository = new DoctrineSecretRepository(

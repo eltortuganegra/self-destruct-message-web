@@ -12,8 +12,7 @@ use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
-use App\domain\ValueObjects\Message\MessageFactoryImp;
-use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class SecretCreateServiceTest extends TestCase
@@ -32,7 +31,7 @@ class SecretCreateServiceTest extends TestCase
     private function buildRequest(): void
     {
         $identifier = '1234';
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
         $message = 'This is a secret.';
         $protocol = 'https';
@@ -47,9 +46,9 @@ class SecretCreateServiceTest extends TestCase
 
     private function buildService(): void
     {
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretFactory = new SecretFactoryImp();
-        $linkForShareFactory = new LinkForShareFactoryImp();
+        $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
         $memoryRepository = new MemorySecretRepository($secretIdFactory);
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
         $this->service = new SecretCreateService(

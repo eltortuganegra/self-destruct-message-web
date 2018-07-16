@@ -11,8 +11,8 @@ use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\Message\MessageIsVoidException;
-use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 
+use App\domain\ValueObjects\ValueObjectsFactory;
 use Doctrine\ORM\EntityManager;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -64,8 +64,8 @@ class SecretController extends Controller
     private function createSecretCreateService(): void
     {
         $secretFactory = new SecretFactoryImp();
-        $secretIdFactory = new SecretIdFactoryImp();
-        $linkForShareFactory = new LinkForShareFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
+        $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
         $messageFactory = new MessageFactoryImp();
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
 
@@ -96,7 +96,7 @@ class SecretController extends Controller
 
     private function loadNextSecretId(): void
     {
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create(Uuid::uuid4());
         $this->serviceRequest->setSecretId($secretId);
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class LinkForShareTest extends TestCase
@@ -12,7 +13,7 @@ class LinkForShareTest extends TestCase
         $protocol = 'https';
         $domain = 'amazingdomain.com';
         $identifier = '1234';
-        $linkForShareFactory = new LinkForShareFactoryImp();
+        $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
         $linkForShare = $linkForShareFactory->create($protocol, $domain, $identifier);
 
         // Act

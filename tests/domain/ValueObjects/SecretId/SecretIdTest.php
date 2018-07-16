@@ -3,6 +3,7 @@
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
 
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class SecretIdTest extends TestCase
@@ -11,7 +12,7 @@ class SecretIdTest extends TestCase
     {
         // Arrange
         $identifier = '1234';
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
 
         // Act

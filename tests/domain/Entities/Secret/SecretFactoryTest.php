@@ -8,6 +8,7 @@ use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactoryImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +18,7 @@ class SecretFactoryTest extends TestCase
     {
         // Arrange
         $identifier = '1234';
-        $secretIdFactory = new SecretIdFactoryImp();
+        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
         $messageText = 'This is a message.';
         $messageFactory = new MessageFactoryImp();
