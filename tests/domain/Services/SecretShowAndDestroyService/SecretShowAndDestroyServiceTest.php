@@ -5,8 +5,6 @@ use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\MemorySecretRepository;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyService;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
-use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
-use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +23,7 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $messageText = 'This is awesome secret message.';
         $messageFactory = ValueObjectsFactory::getMessageFactory();
         $message = $messageFactory->create($messageText);
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $expirationTimeInSeconds = 120;
         $expirationTime = $expirationTimeFactory->create($expirationTimeInSeconds);
         $this->secret = $secretFactory->create($secretId, $message, $expirationTime);

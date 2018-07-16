@@ -8,8 +8,6 @@ use App\domain\Services\SecretShowAndDestroyService\SecretNotFoundException;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyService;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
 use App\domain\Services\ServiceResponse;
-use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
-use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +24,7 @@ class SecretShowController extends Controller
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretFactory = new SecretFactoryImp();
         $messageFactory = ValueObjectsFactory::getMessageFactory();
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $secretRepository = new DoctrineSecretRepository(
             $entityManager,
             $secretFactory,

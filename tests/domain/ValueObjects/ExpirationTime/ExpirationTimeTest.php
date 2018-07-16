@@ -2,8 +2,7 @@
 
 namespace app\tests\domain\ValueObjects\ExpirationTime;
 
-use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
-use DateTime;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class ExpirationTimeTest extends TestCase
@@ -13,7 +12,7 @@ class ExpirationTimeTest extends TestCase
     public function setUp()
     {
         $expirationTimeSeconds = 10;
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $this->expirationTime = $expirationTimeFactory->create($expirationTimeSeconds);
     }
 

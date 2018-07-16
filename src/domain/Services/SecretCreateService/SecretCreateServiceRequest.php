@@ -24,7 +24,7 @@ class SecretCreateServiceRequest implements ServiceRequest
     public function __construct()
     {
         $this->messageFactory = ValueObjectsFactory::getMessageFactory();
-        $this->expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $this->expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
     }
 
     public function setSecretId(SecretId $secretId): void

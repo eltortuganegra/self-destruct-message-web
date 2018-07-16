@@ -24,7 +24,7 @@ class SecretFactoryTest extends TestCase
         $messageFactory = ValueObjectsFactory::getMessageFactory();
         $message = $messageFactory->create($messageText);
         $secretFactory = new SecretFactoryImp();
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $expirationTimeInSeconds = 120;
         $expirationTime = $expirationTimeFactory->create($expirationTimeInSeconds);
         $secret = $secretFactory->create($secretId, $message, $expirationTime);

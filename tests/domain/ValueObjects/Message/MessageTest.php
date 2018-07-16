@@ -17,6 +17,6 @@ class MessageTest extends TestCase
         $messageFactory = ValueObjectsFactory::getMessageFactory();
 
         // Act
-        $message = $messageFactory->create($message);
+        $messageFactory->create($message);
     }
 }

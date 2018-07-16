@@ -2,7 +2,6 @@
 
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
-use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use Ramsey\Uuid\Uuid;
@@ -29,7 +28,7 @@ class SecretRepositoryTest extends KernelTestCase
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $this->secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $expirationSecretSeconds = 60;
         $expirationTime = $expirationTimeFactory->create($expirationSecretSeconds);
         $this->secret = $secretFactory->create($this->secretId, $message, $expirationTime);

@@ -7,11 +7,7 @@ use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\Services\SecretCreateService\ExpirationTimeIsNotFoundException;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
-use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
-use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
-use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\Message\MessageIsVoidException;
-
 use App\domain\ValueObjects\ValueObjectsFactory;
 use Doctrine\ORM\EntityManager;
 use Ramsey\Uuid\Uuid;
@@ -67,7 +63,7 @@ class SecretController extends Controller
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
         $messageFactory = ValueObjectsFactory::getMessageFactory();
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
 
         $secretRepository = new DoctrineSecretRepository(
             $this->entityManager,

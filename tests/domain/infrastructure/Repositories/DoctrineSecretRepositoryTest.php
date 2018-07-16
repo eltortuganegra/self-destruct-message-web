@@ -22,7 +22,7 @@ class DoctrineSecretRepositoryTest extends KernelTestCase
         $secretFactory = new SecretFactoryImp();
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $messageFactory = ValueObjectsFactory::getMessageFactory();
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $this->secretRepository = new DoctrineSecretRepository(
             $entityManager,
             $secretFactory,

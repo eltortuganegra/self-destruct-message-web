@@ -21,7 +21,7 @@ class PostRepositoryTest extends TestCase
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $expirationTimeInSeconds = 120;
         $expirationTime = $expirationTimeFactory->create($expirationTimeInSeconds);
         $secret = $secretFactory->create($secretId, $message, $expirationTime);

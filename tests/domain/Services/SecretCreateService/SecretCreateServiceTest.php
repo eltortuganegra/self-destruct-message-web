@@ -8,9 +8,7 @@ use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\MemorySecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
-
 use App\domain\Services\ServiceResponse;
-use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -49,7 +47,7 @@ class SecretCreateServiceTest extends TestCase
         $secretFactory = new SecretFactoryImp();
         $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
         $memoryRepository = new MemorySecretRepository($secretIdFactory);
-        $expirationTimeFactory = new ExpirationTimeFactoryImp();
+        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $this->service = new SecretCreateService(
             $secretFactory,
             $linkForShareFactory,
