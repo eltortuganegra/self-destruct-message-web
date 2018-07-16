@@ -3,6 +3,7 @@
 use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
+use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretId;
@@ -20,17 +21,7 @@ class DoctrineSecretRepositoryTest extends KernelTestCase
         $entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
-        $secretFactory = EntitiesFactory::getSecretFactory();
-        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
-        $messageFactory = ValueObjectsFactory::getMessageFactory();
-        $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
-        $this->secretRepository = new DoctrineSecretRepository(
-            $entityManager,
-            $secretFactory,
-            $secretIdFactory,
-            $messageFactory,
-            $expirationTimeFactory
-        );
+        $this->secretRepository = RepositoriesFactory::getDoctrineSecretRepository($entityManager);
     }
 
     public function testShouldReturnNextSecretId()

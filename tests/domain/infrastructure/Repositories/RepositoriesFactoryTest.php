@@ -18,15 +18,19 @@ class RepositoriesFactoryTest extends KernelTestCase
         $this->assertEquals(true, $isSecretRepository);
     }
 
-//    public function testShouldReturnDoctrineSecretRepository()
-//    {
-//        // Arrange
-//        $secretRepository = RepositoriesFactory::getDoctrineSecretRepository();
-//
-//        // Act
-//        $isSecretRepository = $secretRepository instanceof SecretRepository;
-//
-//        // Assert
-//        $this->assertEquals(true, $isSecretRepository);
-//    }
+    public function testShouldReturnDoctrineSecretRepository()
+    {
+        // Arrange
+        $kernel = self::bootKernel();
+        $entityManager = $kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $secretRepository = RepositoriesFactory::getDoctrineSecretRepository($entityManager);
+
+        // Act
+        $isSecretRepository = $secretRepository instanceof SecretRepository;
+
+        // Assert
+        $this->assertEquals(true, $isSecretRepository);
+    }
 }

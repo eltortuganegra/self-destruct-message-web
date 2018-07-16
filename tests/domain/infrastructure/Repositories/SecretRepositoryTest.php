@@ -1,9 +1,7 @@
 <?php
 
 use App\domain\Entities\EntitiesFactory;
-use App\domain\Entities\Secret\SecretFactoryImp;
-use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
-use App\domain\ValueObjects\Message\MessageFactoryImp;
+use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -33,15 +31,9 @@ class SecretRepositoryTest extends KernelTestCase
         $expirationSecretSeconds = 60;
         $expirationTime = $expirationTimeFactory->create($expirationSecretSeconds);
         $this->secret = $secretFactory->create($this->secretId, $message, $expirationTime);
-        $messageFactory = new MessageFactoryImp();
 
-        $this->secretRepository = new DoctrineSecretRepository(
-            $entityManager,
-            $secretFactory,
-            $secretIdFactory,
-            $messageFactory,
-            $expirationTimeFactory
-        );
+        $this->secretRepository = RepositoriesFactory::getDoctrineSecretRepository($entityManager);
+
     }
 
     public function testSecretMustCanBePersisted()
