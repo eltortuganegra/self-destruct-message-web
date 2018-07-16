@@ -27,7 +27,6 @@ class MemorySecretRepository implements SecretRepository
     {
         $identifier = $secretId->getIdentifier();
 
-
         return $this->doesIdentifierInRepository($identifier)
             ? $this->secrets[$identifier]
             : null;

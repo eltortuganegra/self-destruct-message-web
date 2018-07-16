@@ -68,7 +68,7 @@ class DoctrineSecretRepository implements SecretRepository
             return null;
         }
 
-        $secret = $this->createSecretFromResult($secretId, $result);
+        $secret = $this->createSecretFromResult($result);
 
         return $secret;
     }
@@ -82,7 +82,7 @@ class DoctrineSecretRepository implements SecretRepository
         return $result;
     }
 
-    private function createSecretFromResult(SecretId $secretId, $result): Secret
+    private function createSecretFromResult($result): Secret
     {
         $secretId = $this->secretIdFactory->create($result->getSecretId());
         $message = $this->messageFactory->create($result->getMessage());
