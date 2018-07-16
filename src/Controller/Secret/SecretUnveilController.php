@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Secret;
 
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretShowAndDestroyService\SecretNotFoundException;
-use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
+use App\domain\Services\SecretShowAndDestroyService\SecretUnveilServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class SecretShowController extends Controller
+class SecretUnveilController extends Controller
 {
     private $service;
     private $serviceRequest;
@@ -22,8 +22,8 @@ class SecretShowController extends Controller
     {
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretRepository = RepositoriesFactory::getDoctrineSecretRepository($entityManager);
-        $this->serviceRequest = new SecretShowAndDestroyServiceRequest($secretIdFactory);
-        $this->service = ServicesFactory::createSecretShowAndDestroyService($secretRepository);
+        $this->serviceRequest = new SecretUnveilServiceRequest($secretIdFactory);
+        $this->service = ServicesFactory::createSecretUnveilService($secretRepository);
     }
 
     public function index(Request $request, string $secretId)
@@ -78,7 +78,7 @@ class SecretShowController extends Controller
         return $this->render(
             'secret_show/error.html.twig',
             [
-                'controller_name' => 'SecretShowController',
+                'controller_name' => 'SecretUnveilController',
             ],
             new Response('', 404)
         );

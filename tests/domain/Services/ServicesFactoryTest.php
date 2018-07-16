@@ -3,7 +3,7 @@
 use App\domain\Infrastructure\Repositories\MemorySecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretDeleteService\SecretDeleteService;
-use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyService;
+use App\domain\Services\SecretShowAndDestroyService\SecretUnveilService;
 use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
@@ -38,15 +38,15 @@ class ServicesFactoryTest extends TestCase
         $this->assertEquals(true, $isServiceASecretCreateService);
     }
 
-    public function testShouldReturnASecretShowAndDestroyService()
+    public function testShouldReturnASecretUnveilService()
     {
         // Arrange
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretRepository = new MemorySecretRepository($secretIdFactory);
-        $service = ServicesFactory::createSecretShowAndDestroyService($secretRepository);
+        $service = ServicesFactory::createSecretUnveilService($secretRepository);
 
         // Act
-        $isServiceASecretShowAndDestroyService = $service instanceof SecretShowAndDestroyService;
+        $isServiceASecretShowAndDestroyService = $service instanceof SecretUnveilService;
 
         // Assert
         $this->assertEquals(true, $isServiceASecretShowAndDestroyService);

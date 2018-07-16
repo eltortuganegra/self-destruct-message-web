@@ -3,7 +3,7 @@
 namespace App\domain\Services\SecretShowAndDestroyService;
 
 
-interface SecretShowAndDestroyService
+interface SecretUnveilService
 {
 
 }

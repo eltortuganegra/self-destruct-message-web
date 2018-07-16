@@ -6,9 +6,9 @@ secret_create:
     path: /secret
     controller: App\Controller\Secret\SecretCreateController::index
 
-show_secrete:
+secret_unveil:
     path: /secret/{secretId}
-    controller: App\Controller\SecretShowController::index
+    controller: App\Controller\Secret\SecretUnveilController::index
 
 privacy_page:
     path: /privacy

@@ -8,7 +8,7 @@ use App\domain\Services\ServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactory;
 
-class SecretShowAndDestroyServiceImp implements Service, SecretShowAndDestroyService
+class SecretUnveilServiceImp implements Service, SecretUnveilService
 {
     private $secretRepository;
     private $linkForShareFactory;
@@ -37,7 +37,7 @@ class SecretShowAndDestroyServiceImp implements Service, SecretShowAndDestroySer
 
         $this->secretRepository->remove($secret);
 
-        return new SecretShowAndDestroyServiceResponse($secret, $linkForShare);
+        return new SecretUnveilResponse($secret, $linkForShare);
     }
 
 }

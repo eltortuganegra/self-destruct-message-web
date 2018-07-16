@@ -3,12 +3,12 @@
 use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\MemorySecretRepository;
-use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
+use App\domain\Services\SecretShowAndDestroyService\SecretUnveilServiceRequest;
 use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
-class SecretShowAndDestroyServiceTest extends TestCase
+class SecretUnveilServiceTest extends TestCase
 {
     private $serviceResponse;
     private $secret;
@@ -31,12 +31,12 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $this->secretRepository = new MemorySecretRepository($secretIdFactory);
         $this->secretRepository->add($this->secret);
 
-        $serviceRequest = new SecretShowAndDestroyServiceRequest($secretIdFactory);
+        $serviceRequest = new SecretUnveilServiceRequest($secretIdFactory);
         $serviceRequest->setIdentifier($identifier);
         $serviceRequest->setDomain('test.com');
         $serviceRequest->setProtocol('https');
 
-        $service = ServicesFactory::createSecretShowAndDestroyService($this->secretRepository);
+        $service = ServicesFactory::createSecretUnveilService($this->secretRepository);
         $this->serviceResponse = $service->execute($serviceRequest);
     }
 

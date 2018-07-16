@@ -7,7 +7,7 @@ use App\domain\Services\ServiceRequest;
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
 
-class SecretShowAndDestroyServiceRequest implements ServiceRequest
+class SecretUnveilServiceRequest implements ServiceRequest
 {
     private $secretIdFactory;
     private $identifier;

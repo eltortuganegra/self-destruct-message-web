@@ -7,7 +7,7 @@ use App\domain\Entities\Secret\Secret;
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\LinkForShare\LinkForShare;
 
-class SecretShowAndDestroyServiceResponse implements ServiceResponse
+class SecretUnveilResponse implements ServiceResponse
 {
     private $secret;
     private $linkForShare;

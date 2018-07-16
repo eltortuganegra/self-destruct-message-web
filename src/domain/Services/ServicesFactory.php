@@ -7,7 +7,7 @@ use App\domain\Entities\EntitiesFactory;
 use App\domain\Infrastructure\Repositories\SecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateServiceImp;
 use App\domain\Services\SecretDeleteService\SecretDeleteServiceImp;
-use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceImp;
+use App\domain\Services\SecretShowAndDestroyService\SecretUnveilServiceImp;
 use App\domain\ValueObjects\ValueObjectsFactory;
 
 class ServicesFactory
@@ -28,10 +28,10 @@ class ServicesFactory
         return $service;
     }
 
-    static public function createSecretShowAndDestroyService(SecretRepository $secretRepository): Service
+    static public function createSecretUnveilService(SecretRepository $secretRepository): Service
     {
         $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
-        $service = new SecretShowAndDestroyServiceImp($secretRepository, $linkForShareFactory, $secretRepository);
+        $service = new SecretUnveilServiceImp($secretRepository, $linkForShareFactory, $secretRepository);
 
         return $service;
     }
