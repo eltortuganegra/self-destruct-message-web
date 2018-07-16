@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\Services\SecretShowAndDestroyService\SecretNotFoundException;
@@ -22,7 +23,7 @@ class SecretShowController extends Controller
     public function __construct(EntityManagerInterface $entityManager)
     {
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
-        $secretFactory = new SecretFactoryImp();
+        $secretFactory = EntitiesFactory::getSecretFactory();
         $messageFactory = ValueObjectsFactory::getMessageFactory();
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $secretRepository = new DoctrineSecretRepository(

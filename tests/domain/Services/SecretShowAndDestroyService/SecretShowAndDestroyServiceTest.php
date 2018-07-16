@@ -1,5 +1,6 @@
 <?php
 
+use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\MemorySecretRepository;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
@@ -18,7 +19,7 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $identifier = Ramsey\Uuid\Uuid::uuid4();
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
-        $secretFactory = new SecretFactoryImp();
+        $secretFactory = EntitiesFactory::getSecretFactory();
         $messageText = 'This is awesome secret message.';
         $messageFactory = ValueObjectsFactory::getMessageFactory();
         $message = $messageFactory->create($messageText);

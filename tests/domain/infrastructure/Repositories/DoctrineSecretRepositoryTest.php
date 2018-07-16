@@ -1,5 +1,6 @@
 <?php
 
+use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
@@ -19,7 +20,7 @@ class DoctrineSecretRepositoryTest extends KernelTestCase
         $entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
-        $secretFactory = new SecretFactoryImp();
+        $secretFactory = EntitiesFactory::getSecretFactory();
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $messageFactory = ValueObjectsFactory::getMessageFactory();
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();

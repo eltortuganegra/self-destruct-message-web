@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\Services\SecretCreateService\ExpirationTimeIsNotFoundException;
@@ -59,7 +60,7 @@ class SecretController extends Controller
 
     private function createSecretCreateService(): void
     {
-        $secretFactory = new SecretFactoryImp();
+        $secretFactory = EntitiesFactory::getSecretFactory();
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $messageFactory = ValueObjectsFactory::getMessageFactory();
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();

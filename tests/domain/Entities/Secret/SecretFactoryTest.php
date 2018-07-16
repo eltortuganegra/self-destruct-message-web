@@ -3,6 +3,7 @@
 namespace App\tests\domain;
 
 
+use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\Secret;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
@@ -23,7 +24,7 @@ class SecretFactoryTest extends TestCase
         $messageText = 'This is a message.';
         $messageFactory = ValueObjectsFactory::getMessageFactory();
         $message = $messageFactory->create($messageText);
-        $secretFactory = new SecretFactoryImp();
+        $secretFactory = EntitiesFactory::getSecretFactory();
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $expirationTimeInSeconds = 120;
         $expirationTime = $expirationTimeFactory->create($expirationTimeInSeconds);

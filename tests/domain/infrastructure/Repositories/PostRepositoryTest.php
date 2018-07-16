@@ -1,6 +1,7 @@
 <?php
 
 
+use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\MemorySecretRepository;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
@@ -20,7 +21,7 @@ class PostRepositoryTest extends TestCase
         $message = $messageFactory->create($messageText);
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
-        $secretFactory = new SecretFactoryImp();
+        $secretFactory = EntitiesFactory::getSecretFactory();
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $expirationTimeInSeconds = 120;
         $expirationTime = $expirationTimeFactory->create($expirationTimeInSeconds);

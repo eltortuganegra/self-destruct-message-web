@@ -1,5 +1,6 @@
 <?php
 
+use App\domain\Entities\EntitiesFactory;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
@@ -27,7 +28,7 @@ class SecretRepositoryTest extends KernelTestCase
         $message = $messageFactory->create($messageText);
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $this->secretId = $secretIdFactory->create($identifier);
-        $secretFactory = new SecretFactoryImp();
+        $secretFactory = EntitiesFactory::getSecretFactory();
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $expirationSecretSeconds = 60;
         $expirationTime = $expirationTimeFactory->create($expirationSecretSeconds);
