@@ -23,7 +23,7 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
         $messageText = 'This is awesome secret message.';
-        $messageFactory = new MessageFactoryImp();
+        $messageFactory = ValueObjectsFactory::getMessageFactory();
         $message = $messageFactory->create($messageText);
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
         $expirationTimeInSeconds = 120;

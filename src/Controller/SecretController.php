@@ -66,7 +66,7 @@ class SecretController extends Controller
         $secretFactory = new SecretFactoryImp();
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
-        $messageFactory = new MessageFactoryImp();
+        $messageFactory = ValueObjectsFactory::getMessageFactory();
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
 
         $secretRepository = new DoctrineSecretRepository(

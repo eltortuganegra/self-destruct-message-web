@@ -25,7 +25,7 @@ class SecretShowController extends Controller
     {
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretFactory = new SecretFactoryImp();
-        $messageFactory = new MessageFactoryImp();
+        $messageFactory = ValueObjectsFactory::getMessageFactory();
         $expirationTimeFactory = new ExpirationTimeFactoryImp();
         $secretRepository = new DoctrineSecretRepository(
             $entityManager,

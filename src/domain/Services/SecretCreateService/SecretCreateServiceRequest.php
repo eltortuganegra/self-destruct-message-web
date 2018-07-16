@@ -6,6 +6,7 @@ use App\domain\Services\ServiceRequest;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretId;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use DateInterval;
 use DateTime;
 use Symfony\Component\Validator\Constraints\Date;
@@ -22,7 +23,7 @@ class SecretCreateServiceRequest implements ServiceRequest
 
     public function __construct()
     {
-        $this->messageFactory = new MessageFactoryImp();
+        $this->messageFactory = ValueObjectsFactory::getMessageFactory();
         $this->expirationTimeFactory = new ExpirationTimeFactoryImp();
     }
 

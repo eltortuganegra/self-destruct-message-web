@@ -23,7 +23,7 @@ class SecretDeleteServiceTest extends TestCase
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);
         $secretFactory = new SecretFactoryImp();
-        $messageFactory = new MessageFactoryImp();
+        $messageFactory = ValueObjectsFactory::getMessageFactory();
         $message = $messageFactory->create($message);
         $expirationDateFactory = new ExpirationTimeFactoryImp();
         $expirationDate = $expirationDateFactory->create($expirationTime);

@@ -16,7 +16,7 @@ class PostRepositoryTest extends TestCase
         // Arrange
         $identifier = Uuid::uuid4();
         $messageText = 'This is a secret message.';
-        $messageFactory = new MessageFactoryImp();
+        $messageFactory = ValueObjectsFactory::getMessageFactory();
         $message = $messageFactory->create($messageText);
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
         $secretId = $secretIdFactory->create($identifier);

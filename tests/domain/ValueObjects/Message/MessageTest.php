@@ -2,6 +2,7 @@
 
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\Message\MessageIsVoidException;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class MessageTest extends TestCase
@@ -13,7 +14,7 @@ class MessageTest extends TestCase
 
         // Arrange
         $message = '';
-        $messageFactory = new MessageFactoryImp();
+        $messageFactory = ValueObjectsFactory::getMessageFactory();
 
         // Act
         $message = $messageFactory->create($message);
