@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Secret;
 
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretCreateService\ExpirationTimeIsNotFoundException;
@@ -14,15 +14,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SecretController extends Controller
+class SecretCreateController extends Controller
 {
     private $serviceRequest;
     private $service;
     private $serviceResponse;
     private $entityManager;
 
-
-    public function create(Request $request)
+    public function index(Request $request)
     {
         try {
             $this->executeSecretCreateService($request);

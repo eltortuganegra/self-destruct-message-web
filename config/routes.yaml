@@ -2,9 +2,9 @@ index:
     path: /
     controller: App\Controller\MainController::index
 
-create_secrete:
+secret_create:
     path: /secret
-    controller: App\Controller\SecretController::create
+    controller: App\Controller\Secret\SecretCreateController::index
 
 show_secrete:
     path: /secret/{secretId}
