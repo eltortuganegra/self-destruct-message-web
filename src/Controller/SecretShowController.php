@@ -9,7 +9,6 @@ use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyService;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
-use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use Doctrine\ORM\EntityManagerInterface;

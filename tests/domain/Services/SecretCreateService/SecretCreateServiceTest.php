@@ -11,7 +11,6 @@ use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
-use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
