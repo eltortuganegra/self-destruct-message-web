@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\Services\SecretShowAndDestroyService\SecretNotFoundException;
-use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyService;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
 use App\domain\Services\ServiceResponse;
+use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,8 +33,7 @@ class SecretShowController extends Controller
             $expirationTimeFactory
         );
         $this->serviceRequest = new SecretShowAndDestroyServiceRequest($secretIdFactory);
-        $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
-        $this->service = new SecretShowAndDestroyService($secretRepository, $linkForShareFactory);
+        $this->service = ServicesFactory::createSecretShowAndDestroyService($secretRepository);
     }
 
     public function index(Request $request, string $secretId)

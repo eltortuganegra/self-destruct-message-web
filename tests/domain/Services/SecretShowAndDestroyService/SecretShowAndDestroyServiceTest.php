@@ -1,10 +1,9 @@
 <?php
 
-
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\MemorySecretRepository;
-use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyService;
 use App\domain\Services\SecretShowAndDestroyService\SecretShowAndDestroyServiceRequest;
+use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -36,9 +35,7 @@ class SecretShowAndDestroyServiceTest extends TestCase
         $serviceRequest->setDomain('test.com');
         $serviceRequest->setProtocol('https');
 
-        $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
-
-        $service = new SecretShowAndDestroyService($this->secretRepository, $linkForShareFactory);
+        $service = ServicesFactory::createSecretShowAndDestroyService($this->secretRepository);
         $this->serviceResponse = $service->execute($serviceRequest);
     }
 

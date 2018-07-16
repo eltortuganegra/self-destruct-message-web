@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\domain\Entities\Secret\SecretFactoryImp;
 use App\domain\Infrastructure\Repositories\DoctrineSecretRepository;
 use App\domain\Services\SecretCreateService\ExpirationTimeIsNotFoundException;
-use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
+use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\Message\MessageIsVoidException;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use Doctrine\ORM\EntityManager;
@@ -61,7 +61,6 @@ class SecretController extends Controller
     {
         $secretFactory = new SecretFactoryImp();
         $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
-        $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
         $messageFactory = ValueObjectsFactory::getMessageFactory();
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
 
@@ -73,7 +72,7 @@ class SecretController extends Controller
             $expirationTimeFactory
         );
 
-        $this->service = new SecretCreateService($secretFactory, $linkForShareFactory, $secretRepository);
+        $this->service = ServicesFactory::createSecretCreateService($secretRepository);
     }
 
     private function loadSecretCreateServiceRequest(Request $request): void
