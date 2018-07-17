@@ -1,6 +1,6 @@
 <?php
 
-use App\domain\Infrastructure\Repositories\MemorySecretRepository;
+use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretDeleteService\SecretDeleteService;
 use App\domain\Services\SecretShowAndDestroyService\SecretUnveilService;
@@ -13,8 +13,7 @@ class ServicesFactoryTest extends TestCase
     public function testShouldReturnASecretCreateService()
     {
         // Arrange
-        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
-        $secretRepository = new MemorySecretRepository($secretIdFactory);
+        $secretRepository = RepositoriesFactory::getMemorySecretRepository();
         $service = ServicesFactory::createSecretCreateService($secretRepository);
 
         // Act
@@ -27,8 +26,7 @@ class ServicesFactoryTest extends TestCase
     public function testShouldReturnASecretDeleteService()
     {
         // Arrange
-        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
-        $secretRepository = new MemorySecretRepository($secretIdFactory);
+        $secretRepository = RepositoriesFactory::getMemorySecretRepository();
         $service = ServicesFactory::createSecretDeleteService($secretRepository);
 
         // Act
@@ -41,8 +39,7 @@ class ServicesFactoryTest extends TestCase
     public function testShouldReturnASecretUnveilService()
     {
         // Arrange
-        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
-        $secretRepository = new MemorySecretRepository($secretIdFactory);
+        $secretRepository = RepositoriesFactory::getMemorySecretRepository();
         $service = ServicesFactory::createSecretUnveilService($secretRepository);
 
         // Act

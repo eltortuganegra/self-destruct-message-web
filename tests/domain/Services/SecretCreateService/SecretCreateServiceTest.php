@@ -4,7 +4,7 @@ namespace App\tests\domain\Services;
 
 
 use App\domain\Entities\Secret\Secret;
-use App\domain\Infrastructure\Repositories\MemorySecretRepository;
+use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\Services\ServicesFactory;
@@ -42,8 +42,7 @@ class SecretCreateServiceTest extends TestCase
 
     private function buildService(): void
     {
-        $secretIdFactory = ValueObjectsFactory::getSecretIdFactory();
-        $memoryRepository = new MemorySecretRepository($secretIdFactory);
+        $memoryRepository = RepositoriesFactory::getMemorySecretRepository();
         $this->service = ServicesFactory::createSecretCreateService($memoryRepository);
     }
 

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\domain\Infrastructure\Repositories;
+namespace App\domain\Infrastructure\Repositories\Doctrine;
 
 use App\domain\Entities\Secret\Secret;
 use App\domain\Entities\Secret\SecretFactory;
+use App\domain\Infrastructure\Repositories\SecretRepository;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactory;
 use App\domain\ValueObjects\Message\MessageFactory;
 use App\domain\ValueObjects\SecretId\SecretId;

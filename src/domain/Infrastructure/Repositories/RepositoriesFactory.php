@@ -4,6 +4,8 @@ namespace App\domain\Infrastructure\Repositories;
 
 
 use App\domain\Entities\EntitiesFactory;
+use App\domain\Infrastructure\Repositories\Doctrine\DoctrineSecretRepository;
+use App\domain\Infrastructure\Repositories\Memory\MemorySecretRepository;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use Doctrine\ORM\EntityManagerInterface;
 

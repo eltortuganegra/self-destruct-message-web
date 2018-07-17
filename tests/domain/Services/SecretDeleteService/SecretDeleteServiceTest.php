@@ -3,8 +3,7 @@
 namespace App\tests\domain\Services;
 
 use App\domain\Entities\EntitiesFactory;
-use App\domain\Entities\Secret\SecretFactoryImp;
-use App\domain\Infrastructure\Repositories\MemorySecretRepository;
+use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretDeleteService\SecretDeleteServiceRequest;
 use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
@@ -26,7 +25,7 @@ class SecretDeleteServiceTest extends TestCase
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
         $expirationDate = $expirationTimeFactory->create($expirationTime);
         $secret = $secretFactory->create($secretId, $message, $expirationDate );
-        $secretRepository = new MemorySecretRepository($secretIdFactory);
+        $secretRepository = RepositoriesFactory::getMemorySecretRepository();
         $secretRepository->add($secret);
 
         $serviceRequest = new SecretDeleteServiceRequest($identifier);

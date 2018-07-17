@@ -1,8 +1,9 @@
 <?php
 
-namespace App\domain\Infrastructure\Repositories;
+namespace App\domain\Infrastructure\Repositories\Memory;
 
 use App\domain\Entities\Secret\Secret;
+use App\domain\Infrastructure\Repositories\SecretRepository;
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
 use Ramsey\Uuid\Uuid;
