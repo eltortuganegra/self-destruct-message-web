@@ -3,8 +3,8 @@
 namespace App\Controller\Secret;
 
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
-use App\domain\Services\SecretShowAndDestroyService\SecretNotFoundException;
-use App\domain\Services\SecretShowAndDestroyService\SecretUnveilServiceRequest;
+use App\domain\Services\SecretUnveilService\SecretNotFoundException;
+use App\domain\Services\SecretUnveilService\SecretUnveilServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;

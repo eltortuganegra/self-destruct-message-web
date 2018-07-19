@@ -1,6 +1,6 @@
 <?php
 
-namespace App\domain\Services\SecretShowAndDestroyService;
+namespace App\domain\Services\SecretUnveilService;
 
 
 use App\domain\Entities\Secret\Secret;

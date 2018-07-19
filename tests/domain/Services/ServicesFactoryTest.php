@@ -3,7 +3,7 @@
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretDeleteService\SecretDeleteService;
-use App\domain\Services\SecretShowAndDestroyService\SecretUnveilService;
+use App\domain\Services\SecretUnveilService\SecretUnveilService;
 use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;

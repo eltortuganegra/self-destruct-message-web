@@ -7,7 +7,7 @@ use App\domain\Entities\EntitiesFactory;
 use App\domain\Infrastructure\Repositories\SecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateServiceImp;
 use App\domain\Services\SecretDeleteService\SecretDeleteServiceImp;
-use App\domain\Services\SecretShowAndDestroyService\SecretUnveilServiceImp;
+use App\domain\Services\SecretUnveilService\SecretUnveilServiceImp;
 use App\domain\ValueObjects\ValueObjectsFactory;
 
 class ServicesFactory

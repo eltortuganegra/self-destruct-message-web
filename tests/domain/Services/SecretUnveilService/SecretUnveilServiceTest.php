@@ -2,7 +2,7 @@
 
 use App\domain\Entities\EntitiesFactory;
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
-use App\domain\Services\SecretShowAndDestroyService\SecretUnveilServiceRequest;
+use App\domain\Services\SecretUnveilService\SecretUnveilServiceRequest;
 use App\domain\Services\ServicesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
