@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
 class MemorySecretRepository implements SecretRepository
 {
     private $secrets = [];
-    private $secretIdFactory;
+    protected $secretIdFactory;
 
     public function __construct(SecretIdFactory $secretIdFactory)
     {
