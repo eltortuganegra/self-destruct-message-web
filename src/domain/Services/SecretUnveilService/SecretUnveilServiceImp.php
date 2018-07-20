@@ -7,6 +7,7 @@ use App\domain\Services\Service;
 use App\domain\Services\ServiceRequest;
 use App\domain\Services\ServiceResponse;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactory;
+use DateTime;
 
 class SecretUnveilServiceImp implements Service, SecretUnveilService
 {
@@ -21,12 +22,14 @@ class SecretUnveilServiceImp implements Service, SecretUnveilService
 
     public function execute(ServiceRequest $serviceRequest): ServiceResponse
     {
-
         $secretId = $serviceRequest->getSecretId();
         $secret = $this->secretRepository->findBySecretId($secretId);
 
         if (empty($secret)) {
             throw new SecretNotFoundException('WTF');
+        }
+        if ($secret->getExpirationDate() < new DateTime() ) {
+            throw new ExpirationTimeIsExpiredException();
         }
 
         $linkForShare = $this->linkForShareFactory->create(

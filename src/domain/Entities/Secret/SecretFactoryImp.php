@@ -25,6 +25,7 @@ class SecretFactoryImp implements SecretFactory
     {
         $expiredAt = new DateTime();
         $expiredAt->add(new \DateInterval('PT' . $expirationTime->getSeconds() . 'S'));
+
         return $expiredAt;
     }
 
