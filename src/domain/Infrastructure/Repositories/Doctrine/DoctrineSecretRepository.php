@@ -43,46 +43,22 @@ class DoctrineSecretRepository implements SecretRepository
 
     public function findBySecretId(SecretId $secretId): ?Secret
     {
-        $result = $this->findSecretBySecretId($secretId);
-        if (empty($result)) {
-            return null;
-        }
-
-        $secret = $this->createSecretFromResult($result);
-
-        return $secret;
-    }
-
-    private function findSecretBySecretId(SecretId $secretId)
-    {
-        $result = $this->entityManager->getRepository(\App\Entity\Secret::class)->findOneBy([
-            'secretId' => $secretId->getIdentifier()
-        ]);
-
-        return $result;
-    }
-
-    private function createSecretFromResult($result): Secret
-    {
-        $secretId = $this->secretIdFactory->create($result->getSecretId());
-        $message = $this->messageFactory->create($result->getMessage());
-        $expirationTime = $this->expirationTimeFactory->create($result->getExpirationTime());
-        $expirationDate = $result->getExpiredAt();
-        $secret = $this->secretFactory->createFromRepository($secretId, $message, $expirationTime, $expirationDate);
+        $findSecretFromDoctrineSecretRepository = new FindSecretFromDoctrineSecretRepository(
+            $this->entityManager,
+            $this->secretFactory,
+            $this->secretIdFactory,
+            $this->messageFactory,
+            $this->expirationTimeFactory
+        );
+        $secret = $findSecretFromDoctrineSecretRepository->execute($secretId);
 
         return $secret;
     }
 
     public function remove(Secret $secret): void
     {
-        $entity = $this->findSecretBySecretId($secret->getSecretId());
-        $this->removeEntity($entity);
-    }
-
-    private function removeEntity(\App\Entity\Secret $entity): void
-    {
-        $this->entityManager->remove($entity);
-        $this->entityManager->flush();
+        $removeSecretFromDoctrineSecretRepository = new RemoveSecretFromDoctrineSecretRepository($this->entityManager);
+        $removeSecretFromDoctrineSecretRepository->execute($secret);
     }
 
     public function nextIdentity(): SecretId
