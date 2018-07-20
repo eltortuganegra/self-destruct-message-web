@@ -3,6 +3,7 @@
 namespace App\Controller\Secret;
 
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
+use App\domain\Services\SecretUnveilService\ExpirationTimeIsExpiredException;
 use App\domain\Services\SecretUnveilService\SecretNotFoundException;
 use App\domain\Services\SecretUnveilService\SecretUnveilServiceRequest;
 use App\domain\Services\ServiceResponse;
@@ -34,6 +35,9 @@ class SecretUnveilController extends Controller
 
             return $this->renderSecret($serviceResponse);
         } catch(SecretNotFoundException $e) {
+
+            return $this->renderSecretNotFound();
+        } catch(ExpirationTimeIsExpiredException $e) {
 
             return $this->renderSecretNotFound();
         }

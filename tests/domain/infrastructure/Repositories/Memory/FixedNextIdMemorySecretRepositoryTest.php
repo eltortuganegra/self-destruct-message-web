@@ -1,7 +1,7 @@
 <?php
 
 
-use app\domain\Infrastructure\Repositories\Memory\FixedNextIdMemorySecretRepository;
+use App\domain\Infrastructure\Repositories\Memory\FixedNextIdMemorySecretRepository;
 use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 

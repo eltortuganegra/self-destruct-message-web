@@ -9,8 +9,6 @@ use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactory;
 use App\domain\ValueObjects\Message\MessageFactory;
 use App\domain\ValueObjects\SecretId\SecretId;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
-use DateInterval;
-use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
 use Ramsey\Uuid\Uuid;
@@ -39,27 +37,8 @@ class DoctrineSecretRepository implements SecretRepository
 
     public function add(Secret $secret): void
     {
-        $entity = $this->createEntity($secret);
-        $this->persistEntity($entity);
-    }
-
-    private function createEntity(Secret $secret): \App\Entity\Secret
-    {
-        $entity = new \App\Entity\Secret();
-        $entity->setSecretId($secret->getSecretId()->getIdentifier());
-        $entity->setMessage($secret->getMessage()->getContent());
-        $expiredAt = new DateTime();
-        $expiredAt->add(new DateInterval('PT' . $secret->getExpirationTime()->getSeconds() . 'S'));
-        $entity->setExpiredAt($expiredAt);
-        $entity->setExpirationTime($secret->getExpirationTime()->getSeconds());
-
-        return $entity;
-    }
-
-    private function persistEntity($entity): void
-    {
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
+        $addSecretToDoctrineSecretRepository = new AddSecretToDoctrineSecretRepository($this->entityManager);
+        $addSecretToDoctrineSecretRepository->execute($secret);
     }
 
     public function findBySecretId(SecretId $secretId): ?Secret
