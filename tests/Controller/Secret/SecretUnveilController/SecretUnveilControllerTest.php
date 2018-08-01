@@ -4,7 +4,7 @@ namespace App\tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class SecretShowControllerTest extends WebTestCase
+class SecretUnveilControllerTest extends WebTestCase
 {
     private $client;
 
@@ -47,7 +47,7 @@ class SecretShowControllerTest extends WebTestCase
         ]);
         $linkForShareUrl = $crawler->filter('.link-for-share .link .link-field')->first()->attr('value');
 
-        $crawler = $this->client->request('GET', $linkForShareUrl);
+        $crawler = $this->client->request('GET', $linkForShareUrl . '/unveil');
 
         // Act
         $amountSecretShowDiv = $crawler->filter('.secret')->count();

@@ -6,8 +6,12 @@ secret_create:
     path: /secret
     controller: App\Controller\Secret\SecretCreateController::index
 
-secret_unveil:
+secret_unveil_confirmation:
     path: /secret/{secretId}
+    controller: App\Controller\Secret\SecretConfirmUnveilTheSecretController::execute
+
+secret_unveil:
+    path: /secret/{secretId}/unveil
     controller: App\Controller\Secret\SecretUnveilController::index
 
 privacy_page:
