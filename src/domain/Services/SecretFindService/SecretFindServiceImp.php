@@ -43,6 +43,6 @@ class SecretFindServiceImp implements Service, SecretFindService
 
     private function isSecretExpired(Secret $secret): bool
     {
-        return $secret->getExpirationDate() > new DateTime();
+        return $secret->getExpirationDate() < new DateTime();
     }
 }

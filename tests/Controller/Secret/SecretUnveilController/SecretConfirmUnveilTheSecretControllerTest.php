@@ -6,7 +6,6 @@ namespace App\tests\Controller;
 use App\domain\Entities\EntitiesFactory;
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\ValueObjects\ValueObjectsFactory;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecretConfirmUnveilTheSecretControllerTest extends WebTestCase
@@ -29,7 +28,7 @@ class SecretConfirmUnveilTheSecretControllerTest extends WebTestCase
         $crawler = $this->client->request( 'GET', '/secret/' . $this->secret->getSecretId()->getIdentifier());
 
         // Act
-        $isThereConfirmationButton = $crawler->filter('.confirmation-unveil-secret')->count();
+        $isThereConfirmationButton = $crawler->filter('.confirmation-unveil-secret .button')->count();
 
         // Assert
         $this->assertEquals(1, $isThereConfirmationButton);
@@ -42,11 +41,10 @@ class SecretConfirmUnveilTheSecretControllerTest extends WebTestCase
         $secretFactory = EntitiesFactory::getSecretFactory();
         $secretId = $this->secretRepository->nextIdentity();
         $messageFactory = ValueObjectsFactory::getMessageFactory();
-        $message = $messageFactory->create('This is a valid message');
+        $message = $messageFactory->create('This is a valid message for test: testWhenUsersUseTheLinkToShareTheyMustSeeTheUnveilButton');
         $expirationTimeFactory = ValueObjectsFactory::getExpirationTimeFactory();
-        $expirationTime = $expirationTimeFactory->create(300);
-        $expirationDate = new DateTime();
-        $this->secret = $secretFactory->createFromRepository($secretId, $message, $expirationTime, $expirationDate);
+        $expirationTime = $expirationTimeFactory->create(86600);
+        $this->secret = $secretFactory->create($secretId, $message, $expirationTime);
     }
 
     private function addSecretToRepository(): void

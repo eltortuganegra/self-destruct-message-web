@@ -45,7 +45,7 @@ class SecretFindServiceTest extends TestCase
         $this->request->setMessage($message);
         $this->request->setProtocol($protocol);
         $this->request->setDomain($domain);
-        $this->request->setExpirationTimeInSeconds(60);
+        $this->request->setExpirationTimeInSeconds(300);
     }
 
     private function buildCreateService(): void
