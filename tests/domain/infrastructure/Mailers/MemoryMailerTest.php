@@ -13,9 +13,10 @@ class MemoryMailerTest extends TestCase
         $subject = 'Subject';
         $body = 'This is a test.';
         $mailer = MemoryMailerFactoryImp::create($from, $to, $subject, $body);
+        $mailer->send();
 
         // Act
-        $isMailSent = $mailer->send();
+        $isMailSent = $mailer->isMailSent();
 
         // Assert
         $this->assertTrue($isMailSent, 'Email has not been sent.');

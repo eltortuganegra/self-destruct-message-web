@@ -7,7 +7,6 @@ use App\domain\ValueObjects\Mail\Mail;
 
 class MemoryMailerImp implements Mailer
 {
-
     private $from;
     private $to;
     private $subject;
@@ -21,7 +20,12 @@ class MemoryMailerImp implements Mailer
         $this->body = $body;
     }
 
-    public function send(): bool
+    public function send(): void
+    {
+
+    }
+
+    public function isMailSent(): bool
     {
         return true;
     }
