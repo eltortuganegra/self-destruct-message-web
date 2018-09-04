@@ -6,6 +6,8 @@ use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactory;
 use App\domain\ValueObjects\ExpirationTime\ExpirationTimeFactoryImp;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactory;
 use App\domain\ValueObjects\LinkForShare\LinkForShareFactoryImp;
+use App\domain\ValueObjects\Mail\MailFactory;
+use App\domain\ValueObjects\Mail\MailFactoryImp;
 use App\domain\ValueObjects\Message\MessageFactory;
 use App\domain\ValueObjects\Message\MessageFactoryImp;
 use App\domain\ValueObjects\SecretId\SecretIdFactory;
@@ -31,6 +33,11 @@ class ValueObjectsFactory
     static function getExpirationTimeFactory(): ExpirationTimeFactory
     {
         return new ExpirationTimeFactoryImp();
+    }
+
+    static function getMailFactory(): MailFactory
+    {
+        return new MailFactoryImp();
     }
 
 }
