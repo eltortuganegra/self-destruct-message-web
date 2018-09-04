@@ -22,13 +22,11 @@ class LocalMailerImp implements Mailer
         $this->isMailSent = false;
     }
 
-    public function send(): bool
+    public function send(): void
     {
         if ($this->sendMail()) {
             $this->setEmailLikeSent();
         }
-
-        return $this->isMailSent();
     }
 
     public function isMailSent(): bool
