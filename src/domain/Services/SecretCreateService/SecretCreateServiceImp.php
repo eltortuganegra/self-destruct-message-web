@@ -22,6 +22,7 @@ class SecretCreateServiceImp implements Service, SecretCreateService
     private $secretRepository;
     private $secret;
     private $serviceRequest;
+    private $serviceResponse;
     private $mailer;
 
     public function __construct(
@@ -38,16 +39,15 @@ class SecretCreateServiceImp implements Service, SecretCreateService
 
     public function execute(ServiceRequest $serviceRequest): ServiceResponse
     {
-
         $this->loadServiceRequest($serviceRequest);
         $this->createSecretFromServiceRequest();
         $this->persistSecret();
-        $response = $this->buildResponse();
+        $this->buildResponse();
         if ($this->doesUserWantSendByEmailTheSharedLink()) {
-            $this->sendByEmailTheSharedLink($response->getLinkForShare());
+            $this->sendNotificationByEmail();
         }
 
-        return $response;
+        return $this->serviceResponse;
     }
 
     private function createSecretFromServiceRequest()
@@ -66,7 +66,7 @@ class SecretCreateServiceImp implements Service, SecretCreateService
         $this->secretRepository->add($this->secret);
     }
 
-    private function buildResponse(): SecretCreateServiceResponse
+    private function buildResponse(): void
     {
         $secret = $this->secretRepository->findBySecretId($this->secret->getSecretId());
         $linkForShare = $this->linkForShareFactory->create(
@@ -75,9 +75,7 @@ class SecretCreateServiceImp implements Service, SecretCreateService
             $this->secret->getSecretId()->getIdentifier()
         );
 
-        $response = new SecretCreateServiceResponse($secret, $linkForShare, $this->mailer->isMailSent());
-
-        return $response;
+        $this->serviceResponse = new SecretCreateServiceResponse($secret, $linkForShare, $this->mailer->isMailSent());
     }
 
     private function loadServiceRequest(ServiceRequest $serviceRequest): void
@@ -90,10 +88,11 @@ class SecretCreateServiceImp implements Service, SecretCreateService
         return ! empty($this->serviceRequest->getToMail());
     }
 
-    private function sendByEmailTheSharedLink(LinkForShare $linkForShare): void
+    private function sendNotificationByEmail(): void
     {
+        $linkForShare = $this->serviceResponse->getLinkForShare();
         $mailFactory = ValueObjectsFactory::getMailFactory();
-        $fromMail = $mailFactory->create('no-reply@eltortuganegra.com');
+        $fromMail = $mailFactory->create($this->serviceRequest->getFromMail());
         $toMail = $mailFactory->create($this->serviceRequest->getToMail());
         $somebodyHasSharedASecretWithYouEmailNotification = new SomebodyHasSharedASecretWithYouEmailNotification($linkForShare);
         $subject = $somebodyHasSharedASecretWithYouEmailNotification->getSubject();

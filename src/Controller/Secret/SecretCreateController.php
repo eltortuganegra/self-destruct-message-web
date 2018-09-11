@@ -21,6 +21,12 @@ class SecretCreateController extends Controller
     private $service;
     private $serviceResponse;
     private $entityManager;
+    private $fromEmail;
+
+    public function __construct($fromEmail)
+    {
+        $this->fromEmail = $fromEmail;
+    }
 
     public function index(Request $request)
     {
@@ -70,6 +76,7 @@ class SecretCreateController extends Controller
         $this->loadDomainFromRequest($request);
         $this->loadMessageFromRequest($request);
         $this->loadExpirationTimeFromRequest($request);
+        $this->loadMailFromMail();
         $this->loadMailToFromRequest($request);
     }
 
@@ -117,13 +124,17 @@ class SecretCreateController extends Controller
         $this->serviceRequest->setExpirationTimeInSeconds($expirationTime);
     }
 
+    private function loadMailFromMail()
+    {
+        $this->serviceRequest->setFromMail($this->fromEmail);
+    }
+
     private function loadMailToFromRequest($request)
     {
         $toMail = $request->request->get('email');
         if ( ! empty($toMail)) {
             $this->serviceRequest->setToMail($toMail);
         }
-
     }
 
     private function renderCreatedSecret(): Response
