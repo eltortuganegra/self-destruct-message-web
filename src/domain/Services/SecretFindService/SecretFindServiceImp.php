@@ -25,6 +25,7 @@ class SecretFindServiceImp implements Service, SecretFindService
         $secretId = $serviceRequest->getSecretId();
         $secret = $this->secretRepository->findBySecretId($secretId);
 
+
         if ($this->isSecretNotFound($secret)) {
             throw new SecretNotFoundException();
         }

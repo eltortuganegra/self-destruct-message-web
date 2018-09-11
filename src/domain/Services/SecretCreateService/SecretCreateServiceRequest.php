@@ -20,6 +20,8 @@ class SecretCreateServiceRequest implements ServiceRequest
     private $protocol;
     private $domain;
     private $expirationTime;
+    private $fromMail;
+    private $toMail;
 
     public function __construct()
     {
@@ -74,6 +76,26 @@ class SecretCreateServiceRequest implements ServiceRequest
     public function getExpirationTime()
     {
         return $this->expirationTime;
+    }
+
+    public function getFromMail()
+    {
+        return $this->fromMail;
+    }
+
+    public function setFromMail($fromMail): void
+    {
+        $this->fromMail = $fromMail;
+    }
+
+    public function getToMail()
+    {
+        return $this->toMail;
+    }
+
+    public function setToMail($toMail): void
+    {
+        $this->toMail = $toMail;
     }
 
 }

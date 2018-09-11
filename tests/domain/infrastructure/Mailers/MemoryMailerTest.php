@@ -1,19 +1,22 @@
 <?php
 
 
-use App\domain\Infrastructure\Mailers\MemoryMailerFactoryImp;
+use App\domain\Infrastructure\Mailers\MailerFactory;
+use App\domain\Infrastructure\Mailers\MemoryMailerFactoryInterfaceImp;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class MemoryMailerTest extends TestCase
 {
     public function testItShouldSendDefaultEmail() {
         // Arrange
-        $from = 'from@eltortuganegra.com';
-        $to = 'to@eltortuganegra.com';
+        $mailFactory = ValueObjectsFactory::getMailFactory();
+        $fromMail = $mailFactory->create('from@eltortuganegra.com');
+        $toMail = $mailFactory->create('to@eltortuganegra.com');
         $subject = 'Subject';
         $body = 'This is a test.';
-        $mailer = MemoryMailerFactoryImp::create($from, $to, $subject, $body);
-        $mailer->send();
+        $mailer = MailerFactory::createMemoryMailer();
+        $mailer->send($fromMail, $toMail, $subject, $body);
 
         // Act
         $isMailSent = $mailer->isMailSent();

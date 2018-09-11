@@ -4,6 +4,7 @@ namespace App\tests\domain\Services;
 
 
 use App\domain\Entities\Secret\Secret;
+use App\domain\Infrastructure\Mailers\MailerFactory;
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
 use App\domain\Services\ServiceResponse;
@@ -43,7 +44,8 @@ class SecretCreateServiceTest extends TestCase
     private function buildService(): void
     {
         $memoryRepository = RepositoriesFactory::getMemorySecretRepository();
-        $this->service = ServicesFactory::createSecretCreateService($memoryRepository);
+        $memoryMailer = MailerFactory::createMemoryMailer();
+        $this->service = ServicesFactory::createSecretCreateService($memoryRepository, $memoryMailer);
     }
 
     private function executeService()
@@ -81,7 +83,7 @@ class SecretCreateServiceTest extends TestCase
         $secretId = $secret->getSecretId();
 
         // Assert
-        $this->assertEquals('1234', $secretId->getIdentifier());
+        $this->assertNotNull($secretId->getIdentifier());
     }
 
     public function testResponseMustContentMessageOfTheCreatedSecret()
@@ -100,12 +102,14 @@ class SecretCreateServiceTest extends TestCase
     {
         // Arrange
         $linkForShare = $this->response->getLinkForShare();
+        $secret = $this->response->getSecret();
+        $expectedUrl = 'https://sharedsecrets.eltortuganegra.com/secret/' . $secret->getSecretId()->getIdentifier();
 
         // Act
         $url = $linkForShare->getUrl();
 
         // Assert
-        $this->assertEquals('https://sharedsecrets.eltortuganegra.com/secret/1234', $url);
+        $this->assertEquals($expectedUrl, $url);
     }
 
 }

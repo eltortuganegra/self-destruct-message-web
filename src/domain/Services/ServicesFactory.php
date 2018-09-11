@@ -4,6 +4,7 @@ namespace App\domain\Services;
 
 
 use App\domain\Entities\EntitiesFactory;
+use App\domain\Infrastructure\Mailers\Mailer;
 use App\domain\Infrastructure\Repositories\SecretRepository;
 use App\domain\Services\SecretCreateService\SecretCreateServiceImp;
 use App\domain\Services\SecretDeleteService\SecretDeleteServiceImp;
@@ -20,11 +21,11 @@ class ServicesFactory
         return $service;
     }
 
-    static public function createSecretCreateService(SecretRepository $secretRepository): Service
+    static public function createSecretCreateService(SecretRepository $secretRepository, Mailer $mailer): Service
     {
         $secretFactory = EntitiesFactory::getSecretFactory();
         $linkForShareFactory = ValueObjectsFactory::getLinkForShareFactory();
-        $service = new SecretCreateServiceImp($secretFactory, $linkForShareFactory, $secretRepository);
+        $service = new SecretCreateServiceImp($secretFactory, $linkForShareFactory, $secretRepository, $mailer);
 
         return $service;
     }

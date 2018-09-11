@@ -1,7 +1,9 @@
 <?php
 
 
-use App\domain\Infrastructure\Mailers\LocalMailerFactoryImp;
+use App\domain\Infrastructure\Mailers\LocalMailerFactoryInterfaceImp;
+use App\domain\Infrastructure\Mailers\MailerFactory;
+use App\domain\ValueObjects\ValueObjectsFactory;
 use PHPUnit\Framework\TestCase;
 
 class LocalMailerTest extends TestCase
@@ -9,12 +11,13 @@ class LocalMailerTest extends TestCase
     public function testItShouldSendMailToDefaultAtEltortuganegraDotCom()
     {
         // Arrange
-        $from = 'from@eltortuganegra.com';
-        $to = 'default@eltortuganegra.com';
-        $subject = 'This is a mail test';
-        $body = 'This is the body of the email test.';
-        $mailer = LocalMailerFactoryImp::create($from, $to, $subject, $body);
-        $mailer->send();
+        $mailFactory = ValueObjectsFactory::getMailFactory();
+        $fromMail = $mailFactory->create('from@eltortuganegra.com');
+        $toMail = $mailFactory->create('to@eltortuganegra.com');
+        $subject = 'Subject';
+        $body = 'This is a test.';
+        $mailer = MailerFactory::createLocalMailer();
+        $mailer->send($fromMail, $toMail, $subject, $body);
 
         // Act
         $isMailSent = $mailer->isMailSent();

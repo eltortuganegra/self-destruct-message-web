@@ -1,5 +1,6 @@
 <?php
 
+use App\domain\Infrastructure\Mailers\MailerFactory;
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretCreateService\SecretCreateService;
 use App\domain\Services\SecretDeleteService\SecretDeleteService;
@@ -14,7 +15,8 @@ class ServicesFactoryTest extends TestCase
     {
         // Arrange
         $secretRepository = RepositoriesFactory::getMemorySecretRepository();
-        $service = ServicesFactory::createSecretCreateService($secretRepository);
+        $mailer = MailerFactory::createMemoryMailer();
+        $service = ServicesFactory::createSecretCreateService($secretRepository, $mailer);
 
         // Act
         $isServiceASecretCreateService = $service instanceof SecretCreateService;

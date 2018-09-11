@@ -3,8 +3,18 @@
 namespace App\domain\Infrastructure\Mailers;
 
 
-interface MailerFactory
-{
-    static public function create(string $from, string $to, string $subject, string $body): Mailer;
+use App\domain\Infrastructure\Mailers\Local\LocalMailerImp;
+use App\domain\Infrastructure\Mailers\Memory\MemoryMailerImp;
 
+class MailerFactory
+{
+    static public function createMemoryMailer(): Mailer
+    {
+        return new MemoryMailerImp();
+    }
+
+    static public function createLocalMailer(): Mailer
+    {
+        return new LocalMailerImp();
+    }
 }

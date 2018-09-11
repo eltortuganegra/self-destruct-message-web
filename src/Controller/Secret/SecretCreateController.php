@@ -2,6 +2,7 @@
 
 namespace App\Controller\Secret;
 
+use App\domain\Infrastructure\Mailers\MailerFactory;
 use App\domain\Infrastructure\Repositories\RepositoriesFactory;
 use App\domain\Services\SecretCreateService\ExpirationTimeIsNotFoundException;
 use App\domain\Services\SecretCreateService\SecretCreateServiceRequest;
@@ -58,7 +59,8 @@ class SecretCreateController extends Controller
     private function createSecretCreateService(): void
     {
         $secretRepository = RepositoriesFactory::getDoctrineSecretRepository($this->entityManager);
-        $this->service = ServicesFactory::createSecretCreateService($secretRepository);
+        $localMailer = MailerFactory::createLocalMailer();
+        $this->service = ServicesFactory::createSecretCreateService($secretRepository, $localMailer);
     }
 
     private function loadSecretCreateServiceRequest(Request $request): void
@@ -68,6 +70,7 @@ class SecretCreateController extends Controller
         $this->loadDomainFromRequest($request);
         $this->loadMessageFromRequest($request);
         $this->loadExpirationTimeFromRequest($request);
+        $this->loadMailToFromRequest($request);
     }
 
     private function executeService()
@@ -114,6 +117,15 @@ class SecretCreateController extends Controller
         $this->serviceRequest->setExpirationTimeInSeconds($expirationTime);
     }
 
+    private function loadMailToFromRequest($request)
+    {
+        $toMail = $request->request->get('email');
+        if ( ! empty($toMail)) {
+            $this->serviceRequest->setToMail($toMail);
+        }
+
+    }
+
     private function renderCreatedSecret(): Response
     {
         return $this->render('secret/created.html.twig', [
@@ -129,5 +141,7 @@ class SecretCreateController extends Controller
             new Response('', 404)
         );
     }
+
+
 
 }
