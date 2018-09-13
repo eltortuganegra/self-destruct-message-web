@@ -22,4 +22,4 @@ You only need a browser. Register is not mandatory.
 
 ## Try it
 
-You can try to share your weird secrets at: [http://shared-secret.eltortuganegra.com](http://shared-secret.eltortuganegra.com)
+You can try to share your weird secrets at: [http://selfdestructmessage.com](http://selfdestructmessage.com)
