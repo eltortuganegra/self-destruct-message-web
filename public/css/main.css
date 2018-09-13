@@ -41,6 +41,19 @@ footer {
     font-size: small;
 }
 
+header.header {
+    color: #007bff;
+}
+
+header.header a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+header.header a:visited {
+    color: #007bff;
+}
+
 /**
 Alerts
  */
