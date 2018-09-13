@@ -162,15 +162,28 @@ linkForShare
     width: 100%;
     margin: 0.5rem 0rem;
     padding: 0rem 0rem 0.5rem 0rem;
-    border: 1px solid #e0e0e0;
+    background-color: #e0e0e0;
+    border: 1px solid grey;
     border-radius: 0.5rem;
 }
 
+.link-for-share {
+    position: relative;
+    width: 100%;
+    margin: 0.5rem 0rem;
+    padding: 0rem 0rem 0.5rem 0rem;
+    background-color: #e0e0e0;
+    border: 1px solid grey;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
 .link-for-share .title {
-    padding: 0rem 0rem 0rem 0.5rem;
+    padding: 0rem;
     margin: 0rem;
     background-color: #e0e0e0;
     margin-bottom: 0.5rem;
+    border-bottom: 1px solid darkgray;
 }
 
 .link-for-share .link {
