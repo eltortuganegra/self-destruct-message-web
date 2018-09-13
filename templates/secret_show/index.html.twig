@@ -15,13 +15,19 @@
         <section class="content">
             <article class="message">
                 <p>Message</p>
-                <textarea class="message-field">{{ response.getSecret.message.getContent }}</textarea>
+                <textarea class="message-field" disabled>
+                    {{ response.getSecret.message.getContent }}
+                </textarea>
             </article>
             <article class="expiration-date">
                 <p>
                     Expires at
-                    <span class="expiration-date-field">{{ response.getSecret.getExpirationDate.format('Y-m-d H:i:s') }}</span>
-                    (<span class="expiration-time-field">{{ response.getSecret.getExpirationTime.getSeconds }}</span> seconds).
+                    <span class="expiration-date-field">
+                        {{ response.getSecret.getExpirationDate.format('Y-m-d H:i:s') }}
+                    </span>
+                    (<span class="expiration-time-field">
+                        {{ response.getSecret.getExpirationTime.getSeconds }}
+                    </span> seconds).
 
                 </p>
             </article>
