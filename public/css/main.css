@@ -119,6 +119,7 @@ Secret
     border: 1px solid darkgray;
     border-radius: 0.5rem;
     background-color: #e0e0e0;
+    overflow: hidden;
 }
 
 .secret .title {
@@ -163,7 +164,7 @@ linkForShare
     margin: 0.5rem 0rem;
     padding: 0rem 0rem 0.5rem 0rem;
     background-color: #e0e0e0;
-    border: 1px solid grey;
+    border: 1px solid darkgray;
     border-radius: 0.5rem;
 }
 
@@ -173,7 +174,7 @@ linkForShare
     margin: 0.5rem 0rem;
     padding: 0rem 0rem 0.5rem 0rem;
     background-color: #e0e0e0;
-    border: 1px solid grey;
+    border: 1px solid darkgray;
     border-radius: 0.5rem;
     overflow: hidden;
 }
